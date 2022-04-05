@@ -1,0 +1,63 @@
+#imagecaption {
+    position: relative;
+}
+
+div#start {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0.75;
+    background: rgb(0, 157, 223);
+}
+
+div#login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.welcome hr {
+    width: 25rem;
+}
+
+hr {
+    border-top: .2rem solid #b4b4b4;
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+}
+
+footer {
+    background-color: #424446;
+}
+
+footer h1 {
+    font-size: 3rem;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+ul.social {
+    list-style-type: none;
+    display: flex;
+    margin: 0 auto;
+}
+
+ul.social li {
+    margin: 0 auto;
+}
+
+footer li i.bi {
+    font-size: 3rem;
+}
+
+footer li i.bi:hover {
+    background-color: rgb(0, 157, 223);
+}
+
+@media (min-width: 1200px) {
+    div.col-xl>.card {
+        height: 11rem;
+    }
+}
