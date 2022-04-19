@@ -61,3 +61,7 @@ footer li i.bi:hover {
         height: 11rem;
     }
 }
+
+.spinner-border{
+    margin-right: 0.5rem;
+}

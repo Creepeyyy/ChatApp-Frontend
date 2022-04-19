@@ -1,12 +1,15 @@
 import './layout/css/App.css';
 import PublicPage from './components/PublicPage';
 import TopMenu from './components/TopMenu';
+import { useSelector } from 'react-redux';
+import PrivatePage from './components/privatePageComponents/PrivatePage'
 
 function App() {
+  const { token } = useSelector((state) => state.authentication);
   return (
     <div className="App bg-dark">
-      <TopMenu/>
-      <PublicPage/>
+      <TopMenu />
+      {token ? <PrivatePage /> : <PublicPage />}
     </div>
   );
 }

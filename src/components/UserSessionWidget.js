@@ -1,11 +1,35 @@
 import React, { useState } from 'react'
-import { Form, Modal } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { Form, Modal, Spinner } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { login, reset } from '../features/authenticationSlice'
 
 function UserSessionWidget(props) {
-    const [userID, setUserID] = useState("");
+    const [formUserID, setformUserID] = useState("");
     const [password, setPassword] = useState("");
 
+    const dispatch = useDispatch();
+    const { userID, isPending, isError, isSuccess, token, message } = useSelector((state) => state.authentication);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(login({
+            userID: formUserID,
+            password: password
+        }))
+    }
+
+    useEffect(() => {
+        if (isError) {
+            console.log(message);
+        }
+        if (isSuccess || userID) {
+            console.log("loged in");
+        }
+        dispatch(reset)
+    }, [userID, isError, isSuccess, message, dispatch])
 
     return (
         <div>
@@ -17,7 +41,7 @@ function UserSessionWidget(props) {
                     <Form>
                         <Form.Group className="mb-3" >
                             <Form.Label>UserID</Form.Label>
-                            <Form.Control id="LoginUserIDInput" type="text" placeholder="userID" name="userID" value={userID} onChange={(e) => setUserID(e.target.value)} />
+                            <Form.Control id="LoginUserIDInput" type="text" placeholder="userID" name="userID" value={formUserID} onChange={(e) => setformUserID(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" >
                             <Form.Label>Password</Form.Label>
@@ -25,8 +49,10 @@ function UserSessionWidget(props) {
                         </Form.Group>
                         <Form.Group className="mb-3" >
                         </Form.Group>
-                        <Button id="LoginButton" variant="primary" type="submit">
-                            Einloggen
+                        <Button id="LoginButton" variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
+                            {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
+                                Logging in...</>) : (<>Einloggen</>)}
+
                         </Button>
                     </Form>
                 </Modal.Body>

@@ -1,8 +1,11 @@
-import React from 'react'
-import LoginButton from './LoginButton'
-import { Collapse } from 'bootstrap';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 
 function TopMenu() {
+    const { token } = useSelector((state) => state.authentication);
+
     return (
         <div className="sticky-top">
             <nav className="navbar navbar-expand-md bg-dark navbar-dark">
@@ -23,7 +26,7 @@ function TopMenu() {
                             </li>
                         </ul>
                         <div className="ms-auto">
-                            <LoginButton />
+                            {token ? <LogoutButton/> : <LoginButton />}
                         </div>
 
                     </div>
