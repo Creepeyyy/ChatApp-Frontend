@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { Form, Modal, Spinner } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ function UserSessionWidget(props) {
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
-    const { userID, isPending, isError, isSuccess, token, message } = useSelector((state) => state.authentication);
+    const { userID, isPending, isError, isSuccess, message } = useSelector((state) => state.authentication);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -40,11 +40,11 @@ function UserSessionWidget(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" >
-                            <Form.Label>UserID</Form.Label>
+                            <Form.Label className="text-black">UserID</Form.Label>
                             <Form.Control id="LoginUserIDInput" type="text" placeholder="userID" name="userID" value={formUserID} onChange={(e) => setformUserID(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" >
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className="text-black">Password</Form.Label>
                             <Form.Control id="LoginPasswordInput" type="password" placeholder="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" >
@@ -52,7 +52,6 @@ function UserSessionWidget(props) {
                         <Button id="LoginButton" variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                             {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
                                 Logging in...</>) : (<>Einloggen</>)}
-
                         </Button>
                     </Form>
                 </Modal.Body>

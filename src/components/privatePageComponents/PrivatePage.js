@@ -1,8 +1,11 @@
 import React from 'react'
+import SideMenu from './SideMenu'
 
 function PrivatePage() {
     return (
-        <div>PrivatePage</div>
+        <div id="PrivatePage">
+            <SideMenu/>
+        </div>
     )
 }
 
