@@ -3,9 +3,15 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import '../../layout/css/SideMenu.css'
 
-function SideMenu() {
+function SideMenu(props) {
     const [show, setShow] = useState(false);
     const { userID } = useSelector((state) => state.authentication);
+
+    const handleMenu = (e, menu) => {
+        e.preventDefault();
+        props.setShowMenu({name: menu});
+    }
+
     return (
         <div>
             <div className="toggle-sidebar position-fixed bg-dark" onClick={() => setShow(true)} hidden={show ? true : false}>
@@ -17,29 +23,28 @@ function SideMenu() {
                     <i className="bi bi-x-circle"></i>
                 </div>
                 <div className="menu">
-                    <div className="item"><a href="/" onClick={(e) => {e.preventDefault()}}>
+                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'chat')}>
                         <i className="bi bi-chat-text"></i>
                         <p>Chat</p>
                     </a>
                     </div>
-                    <div className="item"><a href="*">
+                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'forum')}>
                         <i className="bi bi-chat-square-dots-fill"></i>
                         <p>Forum</p>
                     </a>
                     </div>
-                    <div className="item"><a href="*">
+                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'verify')}>
                         <i className="bi bi-person-check-fill"></i>
                         <p>Verify</p>
                     </a>
                     </div>
-                    <div className="item"><a href="#admintools"><i className="bi bi-hammer">
-
+                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'userManagement')}><i className="bi bi-hammer">
                     </i>
                         <p>Admintools</p>
                     </a>
                     </div>
                     <div className="item" id="last">
-                        <a href="*"><i className="bi bi-person-circle">
+                        <a href="*" onClick={(e) => handleMenu(e, 'profileManagement')}><i className="bi bi-person-circle">
 
                         </i>
                             <p>{userID}</p>

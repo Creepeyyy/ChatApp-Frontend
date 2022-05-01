@@ -4,7 +4,7 @@ import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { login, reset } from '../features/authenticationSlice'
+import { login, reset } from '../../features/authenticationSlice'
 
 function UserSessionWidget(props) {
     const [formUserID, setformUserID] = useState("");

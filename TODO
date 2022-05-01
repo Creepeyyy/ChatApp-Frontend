@@ -1,7 +1,5 @@
-Morgen:
--maybe toastify benutzen 
--private page einbauen 
--fehler handling etc fixen
+Qualitätsänderungen:
+-Errornachricht ausgeben, wenn User sich falsch einloggt (maybe toastify benutzen) 
 
 Wochenende:
 -Meilenstein2 finishen

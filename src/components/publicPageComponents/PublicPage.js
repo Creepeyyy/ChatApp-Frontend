@@ -1,7 +1,7 @@
 import React from 'react'
-import '../layout/css/PublicPage.css'
-import chat from '../layout/pictures/chat.png'
-import LoginButton from './LoginButton'
+import '../../layout/css/PublicPage.css'
+import chat from '../../layout/pictures/chat.png'
+import LoginButton from '../LoginButton'
 
 function PublicPage() {
     return (

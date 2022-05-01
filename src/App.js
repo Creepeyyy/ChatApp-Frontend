@@ -1,5 +1,5 @@
 import './layout/css/App.css';
-import PublicPage from './components/PublicPage';
+import PublicPage from './components/publicPageComponents/PublicPage';
 import TopMenu from './components/TopMenu';
 import { useSelector } from 'react-redux';
 import PrivatePage from './components/privatePageComponents/PrivatePage'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UserSessionWidget from './UserSessionWidget';
+import UserSessionWidget from './publicPageComponents/UserSessionWidget';
 
 function LoginButton() {
     const [loginDialog, setLoginDialog] = useState(false);

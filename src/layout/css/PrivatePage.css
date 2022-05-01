@@ -1,0 +1,111 @@
+.main .card {
+    width: 18rem;
+    margin: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.main .card .btn {
+    text-align: center;
+}
+
+.table {
+    color: #bfbfbf;
+}
+
+.main {
+    max-width: 1745px;
+}
+
+#admintools .table td {
+    max-width: 18rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card {
+    background-color: #424446;
+}
+
+.search {
+    width: 45%;
+}
+
+@media all and (max-width: 992px) {
+    .main {
+        margin-left: 50px;
+    }
+
+    #popover-btn, #forumbtn {
+        width: 10rem;
+    }
+
+    .popover {
+        max-width: 10rem;
+    }
+
+    #messageContainer {
+        width: calc(100vw - 50px);
+    }
+}
+
+@media all and (min-width: 992px) {
+    .main {
+        margin-left: 175px;
+    }
+
+    #popover-btn, #forumbtn {
+        width: 15rem;
+    }
+
+    .popover {
+        max-width: 15rem;
+    }
+
+    #messageContainer {
+        width: calc(100vw - 175px);
+    }
+
+}
+
+#popover-btn {
+    background-color: #424446;
+}
+
+#send {
+    margin-left: 0.25rem;
+    margin-right: 1.5rem;
+    width: 58px;
+}
+
+#messageTitle {
+    border-color: black;
+    background-color: #515457;
+}
+
+#messageText {
+    border-color: black;
+    background-color: #515457;
+}
+
+#sendbar {
+    position: fixed;
+    bottom: 0.5rem;
+    width: inherit;
+}
+
+.card-body a p {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-left: 0.25rem;
+}
+
+#addUser {
+    width: 7rem;
+}
+
+#username {
+    font-weight: 400;
+    margin-top: 0.25rem;
+}
