@@ -1,11 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
-import { useSelector } from 'react-redux';
 import '../../layout/css/SideMenu.css'
 
 function SideMenu(props) {
     const [show, setShow] = useState(false);
-    const { userID } = useSelector((state) => state.authentication);
 
     const handleMenu = (e, menu) => {
         e.preventDefault();
@@ -47,7 +45,7 @@ function SideMenu(props) {
                         <a href="*" onClick={(e) => handleMenu(e, 'profileManagement')}><i className="bi bi-person-circle">
 
                         </i>
-                            <p>{userID}</p>
+                            <p>{props.userID}</p>
                         </a>
                     </div>
                 </div>

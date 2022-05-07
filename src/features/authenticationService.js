@@ -5,7 +5,6 @@ const login = (userID, password) => {
         method: 'GET',
         headers: {'Authorization': 'Basic ' + Buffer.from(userID + ":" + password, "utf-8").toString("base64")}
     };
-    console.log(requestOptions.headers)
     return fetch('https://localhost/authenticate', requestOptions)
     .then(handleResponse)
     .then(userSession => {
@@ -32,9 +31,8 @@ function handleResponse(response) {
         } else {
             const userSession = {
                 userID: JSON.parse(text).userID,
-                token: token
+                token: "Bearer " + token
             }
-            console.log(userSession);
             return userSession;
         }
     })

@@ -8,15 +8,16 @@ import VerificationPage from './verificationComponents/VerificationPage';
 import AccountEditorWidget from './AccountEditorWidget';
 import ChatPage from './chatComponents/ChatPage';
 import { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 
 function PrivatePage() {
     const [showMenu, setShowMenu] = useState({ name: 'forum' });
 
+    const { userID, token } = useSelector((state) => state.authentication);
     useEffect(() => {
         // change background color to bg-dark
         document.body.className = "bg-dark";
-    });
+    }, [showMenu]);
 
     const switchMenu = (param) => {
         switch (param) {
@@ -29,7 +30,7 @@ function PrivatePage() {
             case 'forum':
                 return <ForumThreadPage />;
             case 'userManagement':
-                return <UserManagement/>;
+                return <UserManagement token={token}/>;
             default:
                 return <ForumThreadPage />;
         }
@@ -38,7 +39,7 @@ function PrivatePage() {
     return (
         <div>
             <div id="PrivatePage">
-                <SideMenu setShowMenu={setShowMenu} />
+                <SideMenu userID={userID} setShowMenu={setShowMenu} />
             </div>
             <div className="main">
                 {switchMenu(showMenu.name)}
