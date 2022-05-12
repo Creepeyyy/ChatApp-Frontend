@@ -21,11 +21,7 @@ function handleResponse(response) {
         if(authorizationHeader) {
             token = authorizationHeader.split(" ")[1];
         }
-
         if(!response.ok) {
-            if(response.status === 401) {
-                return
-            }
             const error = response.statusText;
             return Promise.reject(error);
         } else {

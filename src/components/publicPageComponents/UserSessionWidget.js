@@ -28,7 +28,7 @@ function UserSessionWidget(props) {
         if (isSuccess || userID) {
             console.log("loged in");
         }
-        dispatch(reset)
+        dispatch(reset())
     }, [userID, isError, isSuccess, message, dispatch])
 
     return (

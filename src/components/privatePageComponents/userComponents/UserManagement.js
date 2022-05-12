@@ -1,28 +1,31 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getUser, reset } from '../../../features/userManagementSlice';
+import { deleteUser, getUser } from '../../../features/userManagementSlice';
+import UserCreationWidget from './UserCreationWidget';
 
 function UserManagement(props) {
+    const [createDialog, setCreateDialog] = useState(false);
+    const [updateDialog, setUpdateDialog] = useState(false);
+
+    let { user, isPending, isError, isSuccess, message } = useSelector((state) => state.userManagement);
     const dispatch = useDispatch();
-    const { user, isPending, isError, isSuccess, message } = useSelector((state) => state.userManagement);
-    const showUsers = () => {
-        dispatch(getUser(props.token));
+
+    const dUser = (userID) => {
+        dispatch(deleteUser({ token: props.token, userID: userID }));
     }
+
     useEffect(() => {
         if (isError) {
             console.log(message);
         }
         if (isSuccess) {
-            console.log("show users");
+            console.log("success");
         }
-        dispatch(reset)
-    }, [isError, isSuccess, message, dispatch])
+        dispatch(getUser(props.token))
+    }, [props, isError, isSuccess, message, dispatch])
 
-    useEffect(() => {
-        showUsers()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div>
             <div className="container-fluid table-responsive" id="admintools">
@@ -50,7 +53,7 @@ function UserManagement(props) {
                         </div>
                     </div>
                 </div>
-                {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting User...</div> :
+                {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting User...{isPending}</div> :
                     <table className="table">
                         <thead>
                             <tr>
@@ -70,26 +73,27 @@ function UserManagement(props) {
                                     <tr key={item.userID}>
                                         <th scope="row">{item.userID}</th>
                                         <td>{item.userName}</td>
-                                        <td>{item.isAdministrator}</td>
-                                        <td>{item.verified}</td>
+                                        <td>{item.isAdministrator.toString()}</td>
+                                        <td>{item.verified.toString()}</td>
                                         <td>{item.email}</td>
-                                        <td>{item.newsletter}</td>
+                                        <td>{item.newsletter.toString()}</td>
                                         <td><button className="btn btn-secondary">
                                             <i className="bi bi-pencil"></i>
                                         </button>
                                         </td>
-                                        <td><button className="btn btn-danger">
-                                        <i className="bi bi-trash"></i>
-                                            </button>
+                                        <td><button className="btn btn-danger" onClick={() => dUser(item.userID)}>
+                                            <i className="bi bi-trash"></i>
+                                        </button>
                                         </td>
                                     </tr>
                                 );
                             })}
                             <tr>
                                 <th scope="row">
-                                    <button className="btn btn-primary" id="addUser" onClick={() => console.log("a")}>
+                                    <button className="btn btn-primary" id="addUser" onClick={() => setCreateDialog(true)}>
                                         <i className="bi bi-plus"> Add User</i>
                                     </button>
+                                    {createDialog ? <UserCreationWidget show={createDialog} hide={setCreateDialog} token={props.token} /> : <></>}
                                 </th>
                                 <td></td>
                                 <td></td>
@@ -102,7 +106,6 @@ function UserManagement(props) {
                         </tbody>
                     </table>
                 }
-
                 {/*                 <div className="text-center text-md-end m-2">
 
                 </div> */}
