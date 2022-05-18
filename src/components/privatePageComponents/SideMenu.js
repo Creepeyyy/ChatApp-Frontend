@@ -36,7 +36,7 @@ function SideMenu(props) {
                         <p>Verify</p>
                     </a>
                     </div>
-                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'userManagement')}><i className="bi bi-hammer">
+                    <div className="item"><a id="OpenUserManagementButton" href="*" onClick={(e) => handleMenu(e, 'userManagement')}><i className="bi bi-hammer">
                     </i>
                         <p>Admintools</p>
                     </a>

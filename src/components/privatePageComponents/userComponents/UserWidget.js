@@ -5,23 +5,25 @@ import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { createUser, reset } from '../../../features/userCreationSlice';
-import { reset as resetUsers } from '../../../features/userManagementSlice';
+import { createUser, reset, updateUser } from '../../../features/userManagement/userDialogSlice';
+import { reset as resetUsers } from '../../../features/userManagement/userManagementSlice';
 
-function UserCreationWidget(props) {
+function UserWidget(props) {
   const [input, setInput] = useState({
-    isAdministrator: false,
-    newsletter: false
+    isAdministrator: props.user ? props.user.isAdministrator : false,
+    newsletter: props.user ? props.user.newsletter : false
   });
+
   const dispatch = useDispatch();
-  let { isPending, isError, isSuccess, message } = useSelector((state) => state.userCreation);
+  let { isPending, isError, isSuccess, message } = useSelector((state) => state.userDialogManagement);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input.isAdministrator)
-    console.log(input.newsletter)
-    dispatch(createUser({ token: props.token, user: input }));
-    dispatch(resetUsers());
+    if (props.user) {
+      dispatch(updateUser({ token: props.token, userID: props.user.userID, updateData: input }));
+    } else {
+      dispatch(createUser({ token: props.token, user: input }));
+    }
   }
 
   useEffect(() => {
@@ -31,13 +33,17 @@ function UserCreationWidget(props) {
     if (isSuccess) {
       console.log("Created: ");
       console.log(message);
+      dispatch(resetUsers());
+      dispatch(reset());
     }
-    dispatch(reset());
-  }, [isError, isSuccess, message, dispatch])
+  }, [props, isError, isSuccess, message, dispatch])
 
   return (
     <div>
-      <Modal show={props.show} onHide={() => props.hide(false)}>
+      <Modal show={props.show ? true : false} onHide={() => {
+        props.hide(false);
+        dispatch(reset());
+      }}>
         <Modal.Header closeButton>
           <Modal.Title className="text-black">Usererstellung</Modal.Title>
         </Modal.Header>
@@ -45,19 +51,22 @@ function UserCreationWidget(props) {
           <Form>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">UserID*</Form.Label>
-              <Form.Control id="LoginUserIDInput" type="text" placeholder="userID" name="userID" onChange={(e) => setInput({ ...input, userID: e.target.value })} />
+              <Form.Control id="UserIDInput" type="text"
+                placeholder={props.user ? props.user.userID : 'userID'}
+                name="userID" onChange={(e) => setInput({ ...input, userID: e.target.value })}
+                disabled={props.user ? true : false} />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Username</Form.Label>
-              <Form.Control id="LoginPasswordInput" type="text" placeholder="userName" name="userName" onChange={(e) => setInput({ ...input, userName: e.target.value })} />
+              <Form.Control id="UserNameInput" type="text" placeholder={props.user ? props.user.userName : 'userName'} name="userName" onChange={(e) => setInput({ ...input, userName: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Passwort*</Form.Label>
-              <Form.Control id="LoginPasswordInput" type="password" placeholder="password" name="password" onChange={(e) => setInput({ ...input, password: e.target.value })} />
+              <Form.Control id="PasswordInput" type="password" placeholder='password' name="password" onChange={(e) => setInput({ ...input, password: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Email</Form.Label>
-              <Form.Control id="LoginPasswordInput" type="text" placeholder="email" name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
+              <Form.Control id="LoginPasswordInput" type="text" placeholder={props.user ? props.user.email : 'email'} name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
             </Form.Group>
             <Form.Check
               inline
@@ -67,6 +76,7 @@ function UserCreationWidget(props) {
               label={
                 <p className="text-black">ist Admin?</p>
               }
+              defaultChecked= {input.isAdministrator}
             />
             <Form.Check
               inline
@@ -76,16 +86,18 @@ function UserCreationWidget(props) {
               label={
                 <p className="text-black">erhält Newsletter?</p>
               }
+              defaultChecked={input.newsletter}
             />
             <Form.Group className="mb-3" >
             </Form.Group>
-            <Button id="LoginButton" variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
+            <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
               {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                Creating new user...</>) : (<>Submit user</>)}
+                {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
             </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer className="text-black">
+          {isError ? <p className="me-auto text-danger">Bitte fülle alle Pflichtfelder aus!</p> : <></>}
           *Pflichfelder
         </Modal.Footer>
       </Modal>
@@ -93,4 +105,4 @@ function UserCreationWidget(props) {
   )
 }
 
-export default UserCreationWidget
+export default UserWidget

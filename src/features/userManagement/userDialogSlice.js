@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import userManagementService from "./userManagementService";
 
 export const createUser = createAsyncThunk('createUser', async (data, thunkAPI) => {
@@ -9,10 +9,17 @@ export const createUser = createAsyncThunk('createUser', async (data, thunkAPI) 
     }
 });
 
+export const updateUser = createAsyncThunk('updateUser', async (data, thunkAPI) => {
+    try {
+        return await userManagementService.updateUser(data.token, data.userID, data.updateData);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e);
+    }
+});
+
 export const userCreationSlice = createSlice({
     name: "userCreation",
     initialState: {
-        user: '',
         isError: false,
         isSuccess: false,
         isPending: false,
@@ -28,16 +35,16 @@ export const userCreationSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(createUser.pending, (state, action) => {
+        .addMatcher(isAnyOf(createUser.pending, updateUser.pending), (state,action) => {
             state.isPending = true;
         })
-        .addCase(createUser.fulfilled, (state, action) => {
+        .addMatcher(isAnyOf(createUser.fulfilled, updateUser.fulfilled), (state, action) => {
             state.isPending = false;
             state.isSuccess = true;
             state.isError = false;
             state.message = action.payload;
         })
-        .addCase(createUser.rejected, (state, action) => {
+        .addMatcher(isAnyOf(createUser.rejected, updateUser.rejected), (state, action) => {
             state.isPending = false;
             state.isError = true;
             state.isSuccess = false;

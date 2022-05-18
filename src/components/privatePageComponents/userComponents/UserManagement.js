@@ -2,8 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getUser } from '../../../features/userManagementSlice';
-import UserCreationWidget from './UserCreationWidget';
+import { deleteUser, getUser } from '../../../features/userManagement/userManagementSlice';
+import UserWidget from './UserWidget';
 
 function UserManagement(props) {
     const [createDialog, setCreateDialog] = useState(false);
@@ -70,30 +70,32 @@ function UserManagement(props) {
                         <tbody>
                             {user.map(item => {
                                 return (
-                                    <tr key={item.userID}>
+                                    <tr id={`UserItem${item.userID}`} key={item.userID}>
                                         <th scope="row">{item.userID}</th>
                                         <td>{item.userName}</td>
                                         <td>{item.isAdministrator.toString()}</td>
                                         <td>{item.verified.toString()}</td>
                                         <td>{item.email}</td>
                                         <td>{item.newsletter.toString()}</td>
-                                        <td><button className="btn btn-secondary">
-                                            <i className="bi bi-pencil"></i>
-                                        </button>
+                                        <td>
+                                            <button id={`EditButton${item.userID}`} className="btn btn-secondary" onClick={() => setUpdateDialog(item)}>
+                                                <i className="bi bi-pencil"></i>
+                                            </button>
                                         </td>
-                                        <td><button className="btn btn-danger" onClick={() => dUser(item.userID)}>
-                                            <i className="bi bi-trash"></i>
-                                        </button>
+                                        <td>
+                                            <button id={`DeleteButton${item.userID}`} className="btn btn-danger" onClick={() => dUser(item.userID)}>
+                                                <i className="bi bi-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 );
                             })}
                             <tr>
                                 <th scope="row">
-                                    <button className="btn btn-primary" id="addUser" onClick={() => setCreateDialog(true)}>
+                                    <button className="btn btn-primary" id="OpenCreateUserDialogButton" onClick={() => setCreateDialog(true)}>
                                         <i className="bi bi-plus"> Add User</i>
                                     </button>
-                                    {createDialog ? <UserCreationWidget show={createDialog} hide={setCreateDialog} token={props.token} /> : <></>}
+                                    {createDialog ? <UserWidget show={createDialog} hide={setCreateDialog} token={props.token} /> : <></>}
                                 </th>
                                 <td></td>
                                 <td></td>
@@ -106,6 +108,7 @@ function UserManagement(props) {
                         </tbody>
                     </table>
                 }
+                {updateDialog ? <UserWidget show={updateDialog} hide={setUpdateDialog} token={props.token} user={updateDialog} /> : <></>}
                 {/*                 <div className="text-center text-md-end m-2">
 
                 </div> */}
