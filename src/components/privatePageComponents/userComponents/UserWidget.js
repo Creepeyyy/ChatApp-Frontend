@@ -35,6 +35,7 @@ function UserWidget(props) {
       console.log(message);
       dispatch(resetUsers());
       dispatch(reset());
+      props.hide(false);
     }
   }, [props, isError, isSuccess, message, dispatch])
 
