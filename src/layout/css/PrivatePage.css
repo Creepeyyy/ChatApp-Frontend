@@ -109,3 +109,9 @@
     font-weight: 400;
     margin-top: 0.25rem;
 }
+
+#privateLandingPage{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}

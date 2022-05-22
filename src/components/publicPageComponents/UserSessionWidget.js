@@ -4,6 +4,7 @@ import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { login, reset } from '../../features/authentication/authenticationSlice'
 
 function UserSessionWidget(props) {
@@ -27,8 +28,8 @@ function UserSessionWidget(props) {
         }
         if (isSuccess || userID) {
             console.log("loged in");
+            dispatch(reset())
         }
-        dispatch(reset())
     }, [userID, isError, isSuccess, message, dispatch])
 
     return (
@@ -56,9 +57,11 @@ function UserSessionWidget(props) {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer className="text-black">
+                    {isError ? <p className="me-auto text-danger">Falsche Eingabedaten!</p> : <></>}
                     Registrieren
                 </Modal.Footer>
             </Modal>
+            {isSuccess ? <Navigate to="/my"/> : <></>}
         </div>
     )
 }

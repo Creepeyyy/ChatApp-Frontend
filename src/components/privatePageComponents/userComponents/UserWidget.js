@@ -67,34 +67,39 @@ function UserWidget(props) {
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Email</Form.Label>
-              <Form.Control id="LoginPasswordInput" type="text" placeholder={props.user ? props.user.email : 'email'} name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
+              <Form.Control id="EmailInput" type="text" placeholder={props.user ? props.user.email : 'email'} name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
             </Form.Group>
-            <Form.Check
-              inline
-              type="switch"
-              id="custom-switch"
-              onChange={(e) => setInput({ ...input, isAdministrator: e.target.checked })}
-              label={
-                <p className="text-black">ist Admin?</p>
-              }
-              defaultChecked= {input.isAdministrator}
-            />
-            <Form.Check
-              inline
-              type="switch"
-              id="custom-switch2"
-              onChange={(e) => setInput({ ...input, newsletter: e.target.checked })}
-              label={
-                <p className="text-black">erhält Newsletter?</p>
-              }
-              defaultChecked={input.newsletter}
-            />
             <Form.Group className="mb-3" >
-            </Form.Group>
-            <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
-              {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
-            </Button>
+              <Form.Check
+                inline
+                type="switch"
+                id="isAdministratorInput"
+                onChange={(e) => setInput({ ...input, isAdministrator: e.target.checked })}
+                label={
+                  <p className="text-black">ist Admin?</p>
+                }
+                defaultChecked={input.isAdministrator}
+              />
+              <Form.Check
+                inline
+                type="switch"
+                id="isNewsletterEnjoyerInput"
+                onChange={(e) => setInput({ ...input, newsletter: e.target.checked })}
+                label={
+                  <p className="text-black">erhält Newsletter?</p>
+                }
+                defaultChecked={input.newsletter}
+              />
+              </Form.Group>
+              <Form.Group className="d-flex flex-row justify-content-between mx-2">
+                <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
+                  {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
+                    {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
+                </Button>
+                <Button variant="secondary" onClick={() => props.hide(false)}>
+                  Back to List
+                </Button>
+              </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer className="text-black">

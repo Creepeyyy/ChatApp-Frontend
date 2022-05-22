@@ -2,19 +2,17 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getUser } from '../../../features/userManagement/userManagementSlice';
+import { getUser } from '../../../features/userManagement/userManagementSlice';
+import ConfirmationDialog from './ConfirmationDialog';
 import UserWidget from './UserWidget';
 
 function UserManagement(props) {
     const [createDialog, setCreateDialog] = useState(false);
     const [updateDialog, setUpdateDialog] = useState(false);
+    const [confirmationDialog, setConfirmationDialog] = useState(false);
 
     let { user, isPending, isError, isSuccess, message } = useSelector((state) => state.userManagement);
     const dispatch = useDispatch();
-
-    const dUser = (userID) => {
-        dispatch(deleteUser({ token: props.token, userID: userID }));
-    }
 
     useEffect(() => {
         if (isError) {
@@ -83,7 +81,7 @@ function UserManagement(props) {
                                             </button>
                                         </td>
                                         <td>
-                                            <button id={`DeleteButton${item.userID}`} className="btn btn-danger" onClick={() => dUser(item.userID)}>
+                                            <button id={`DeleteButton${item.userID}`} className="btn btn-danger" onClick={() => setConfirmationDialog(item.userID)}>
                                                 <i className="bi bi-trash"></i>
                                             </button>
                                         </td>
@@ -109,9 +107,7 @@ function UserManagement(props) {
                     </table>
                 }
                 {updateDialog ? <UserWidget show={updateDialog} hide={setUpdateDialog} token={props.token} user={updateDialog} /> : <></>}
-                {/*                 <div className="text-center text-md-end m-2">
-
-                </div> */}
+                {confirmationDialog ? <ConfirmationDialog show={confirmationDialog} hide={setConfirmationDialog} token={props.token} userID={confirmationDialog} /> : <></>}
             </div>
         </div>
     )

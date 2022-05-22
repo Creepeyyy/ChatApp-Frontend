@@ -1,13 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 function SideMenu(props) {
     const [show, setShow] = useState(true);
-
-    const handleMenu = (e, menu) => {
-        e.preventDefault();
-        props.setShowMenu({name: menu});
-    }
 
     return (
         <div>
@@ -20,36 +16,46 @@ function SideMenu(props) {
                     <i className="bi bi-x-circle"></i>
                 </div>
                 <div className="menu">
-                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'chat')}>
-                        <i className="bi bi-chat-text"></i>
-                        <p>Chat</p>
-                    </a>
+                    <div className="item">
+                        <Link to="chats">
+                            <i className="bi bi-chat-text"/>
+                            <p>Chat</p>
+                        </Link>
                     </div>
-                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'forum')}>
-                        <i className="bi bi-chat-square-dots-fill"></i>
-                        <p>Forum</p>
-                    </a>
+                    <div className="item">
+                        <Link to="forums">
+                            <i className="bi bi-chat-square-dots-fill"/>
+                            <p>Forum</p>
+                        </Link>
                     </div>
-                    <div className="item"><a href="*" onClick={(e) => handleMenu(e, 'verify')}>
-                        <i className="bi bi-person-check-fill"></i>
-                        <p>Verify</p>
-                    </a>
+                    <div className="item">
+                        <Link to="verify">
+                            <i className="bi bi-person-check-fill"/>
+                            <p>Verify</p>
+                        </Link>
                     </div>
-                    <div className="item"><a id="OpenUserManagementButton" href="*" onClick={(e) => handleMenu(e, 'userManagement')}><i className="bi bi-hammer">
-                    </i>
-                        <p>Admintools</p>
-                    </a>
+                    <div className="item">
+                        <Link to="userManagement" id="OpenUserManagementButton">
+                            <i className="bi bi-hammer"/>
+                            <p>Admintools</p>
+                        </Link>
                     </div>
-                    <div className="item" id="last">
-                        <a href="*" onClick={(e) => handleMenu(e, 'profileManagement')}><i className="bi bi-person-circle">
+                    <div className="item">
+                        <Link to="" id="OpenPrivatePageButton">
+                            <i className="bi bi-arrow-left-circle-fill"/>
+                            <p>LandingPage</p>
+                        </Link>
+                    </div>
 
-                        </i>
+                    <div className="item" id="last">
+                        <Link to="profile">
+                            <i className="bi bi-person-circle"/>
                             <p>{props.userID}</p>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

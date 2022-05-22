@@ -5,4 +5,6 @@ Wochenende:
 -Meilenstein3 finishen
 
 Meilenstein2:
--jeder User sieht usermanagementbutton / soll admin über jwt verify geprüft werden oder wird im response body isAdministrator mitgegeben?
+-jeder User sieht usermanagementbutton -> soll isAdmin über jwt verify geprüft werden oder wird im response body isAdministrator mitgegeben?
+-PrivateStartseite gleiche wie normale, also auch LandingPage id oder soll sie eine andere spezielle ID haben???
+-UserEditor Werte müssen schon eingetragen sein oder reicht / placeholder (werte sind nur sichtbar vorgetragen, aber nicht eingetragen) -> beim password z.B.
