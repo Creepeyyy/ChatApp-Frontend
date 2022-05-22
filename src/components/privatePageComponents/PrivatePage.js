@@ -1,6 +1,5 @@
 import React from 'react'
 import SideMenu from './SideMenu'
-import '../../layout/css/PrivatePage.css'
 import { useEffect } from 'react'
 import UserManagement from './userComponents/UserManagement';
 import ForumThreadPage from './forumComponents/ForumThreadPage';

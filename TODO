@@ -2,4 +2,7 @@ Qualitätsänderungen:
 -Errornachricht ausgeben, wenn User sich falsch einloggt (maybe toastify benutzen) 
 
 Wochenende:
--Meilenstein2 finishen
+-Meilenstein3 finishen
+
+Meilenstein2:
+-jeder User sieht usermanagementbutton / soll admin über jwt verify geprüft werden oder wird im response body isAdministrator mitgegeben?

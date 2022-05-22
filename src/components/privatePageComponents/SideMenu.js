@@ -1,9 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
-import '../../layout/css/SideMenu.css'
 
 function SideMenu(props) {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(true);
 
     const handleMenu = (e, menu) => {
         e.preventDefault();

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import userManagementService from "./userManagementService";
 
 export const getUser = createAsyncThunk('getUser', async (token, thunkAPI) => {
@@ -38,8 +38,11 @@ export const userManagementSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getUser.pending, (state, action) => {
-                state.isPending = true;
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.isPending = false;
+                state.isSuccess = true;
+                state.isError = false;
+                state.message = action.payload;
             })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.isPending = false;
@@ -47,26 +50,14 @@ export const userManagementSlice = createSlice({
                 state.isError = false;
                 state.user = action.payload;
             })
-            .addCase(getUser.rejected, (state, action) => {
-                state.isPending = false;
-                state.isError = true;
-                state.isSuccess = false;
-                state.message = action.payload;
-            })
-            .addCase(deleteUser.fulfilled, (state, action) => {
-                state.isPending = false;
-                state.isSuccess = true;
-                state.isError = false;
-                state.message = action.payload;
-            })
-            .addCase(deleteUser.rejected, (state, action) => {
-                state.isPending = false;
-                state.isError = true;
-                state.isSuccess = false;
-                state.message = action.payload;
-            })
-            .addCase(deleteUser.pending, (state, action) => {
+            .addMatcher(isAnyOf(getUser.pending, deleteUser.pending), (state, action) => {
                 state.isPending = true;
+            })
+            .addMatcher(isAnyOf(getUser.rejected, deleteUser.rejected), (state, action) => {
+                state.isPending = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.payload;
             })
     },
 });

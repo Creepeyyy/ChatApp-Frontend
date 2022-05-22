@@ -5,7 +5,7 @@ import LoginButton from '../LoginButton'
 
 function PublicPage() {
     return (
-        <div id="topPage">
+        <div id="LandingPage">
             <section className="bg-dark text-light text-center py-5" >
                 <div id="imagecaption">
                     <div id="start" className="container-fluid">
