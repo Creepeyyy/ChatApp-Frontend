@@ -1,4 +1,5 @@
 import { Buffer } from "buffer"
+import jwt_decode from 'jwt-decode'
 
 const login = (userID, password) => {
     const requestOptions = {
@@ -25,8 +26,11 @@ function handleResponse(response) {
             const error = response.statusText;
             return Promise.reject(error);
         } else {
+            const user = jwt_decode(token);
             const userSession = {
-                userID: JSON.parse(text).userID,
+                userID: user.userID,
+                isAdministrator: user.isAdministrator,
+                userName: user.userName,
                 token: "Bearer " + token
             }
             return userSession;

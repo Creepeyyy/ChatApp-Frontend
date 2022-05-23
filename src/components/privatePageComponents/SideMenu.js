@@ -17,39 +17,35 @@ function SideMenu(props) {
                 </div>
                 <div className="menu">
                     <div className="item">
-                        <Link to="chats">
-                            <i className="bi bi-chat-text"/>
-                            <p>Chat</p>
-                        </Link>
-                    </div>
-                    <div className="item">
                         <Link to="forums">
-                            <i className="bi bi-chat-square-dots-fill"/>
+                            <i className="bi bi-chat-square-dots-fill" />
                             <p>Forum</p>
                         </Link>
                     </div>
                     <div className="item">
                         <Link to="verify">
-                            <i className="bi bi-person-check-fill"/>
+                            <i className="bi bi-person-check-fill" />
                             <p>Verify</p>
                         </Link>
                     </div>
-                    <div className="item">
-                        <Link to="userManagement" id="OpenUserManagementButton">
-                            <i className="bi bi-hammer"/>
-                            <p>Admintools</p>
-                        </Link>
-                    </div>
+                    {props.isAdministrator ?
+                        <div className="item">
+                            <Link to="userManagement" id="OpenUserManagementButton">
+                                <i className="bi bi-hammer" />
+                                <p>Admintools</p>
+                            </Link>
+                        </div>
+                    : <></>}
                     <div className="item">
                         <Link to="" id="OpenPrivatePageButton">
-                            <i className="bi bi-arrow-left-circle-fill"/>
-                            <p>LandingPage</p>
+                            <i className="bi bi-arrow-left-circle-fill" />
+                            <p>Greeting Page</p>
                         </Link>
                     </div>
 
                     <div className="item" id="last">
                         <Link to="profile">
-                            <i className="bi bi-person-circle"/>
+                            <i className="bi bi-person-circle" />
                             <p>{props.userID}</p>
                         </Link>
                     </div>

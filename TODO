@@ -1,10 +1,2 @@
-Qualitätsänderungen:
--Errornachricht ausgeben, wenn User sich falsch einloggt (maybe toastify benutzen) 
-
 Wochenende:
 -Meilenstein3 finishen
-
-Meilenstein2:
--jeder User sieht usermanagementbutton -> soll isAdmin über jwt verify geprüft werden oder wird im response body isAdministrator mitgegeben?
--PrivateStartseite gleiche wie normale, also auch LandingPage id oder soll sie eine andere spezielle ID haben???
--UserEditor Werte müssen schon eingetragen sein oder reicht / placeholder (werte sind nur sichtbar vorgetragen, aber nicht eingetragen) -> beim password z.B.

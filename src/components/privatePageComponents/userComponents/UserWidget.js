@@ -46,7 +46,7 @@ function UserWidget(props) {
         dispatch(reset());
       }}>
         <Modal.Header closeButton>
-          <Modal.Title className="text-black">Usererstellung</Modal.Title>
+          <Modal.Title className="text-black">{props.user ? "Usereditor" : "Usererstellung"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -59,7 +59,7 @@ function UserWidget(props) {
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Username</Form.Label>
-              <Form.Control id="UserNameInput" type="text" placeholder={props.user ? props.user.userName : 'userName'} name="userName" onChange={(e) => setInput({ ...input, userName: e.target.value })} />
+              <Form.Control id="UserNameInput" type="text" placeholder={props.user ? props.user.userName : 'userName'} defaultValue={props.user ? props.user.userName : ''} name="userName" onChange={(e) => setInput({ ...input, userName: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Passwort*</Form.Label>
@@ -67,7 +67,7 @@ function UserWidget(props) {
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Label className="text-black">Email</Form.Label>
-              <Form.Control id="EmailInput" type="text" placeholder={props.user ? props.user.email : 'email'} name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
+              <Form.Control id="EmailInput" type="text" placeholder={props.user ? props.user.email : 'email'} defaultValue={props.user ? props.user.email : ''} name="email" onChange={(e) => setInput({ ...input, email: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
               <Form.Check
@@ -90,16 +90,16 @@ function UserWidget(props) {
                 }
                 defaultChecked={input.newsletter}
               />
-              </Form.Group>
-              <Form.Group className="d-flex flex-row justify-content-between mx-2">
-                <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
-                  {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                    {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
-                </Button>
-                <Button variant="secondary" onClick={() => props.hide(false)}>
-                  Back to List
-                </Button>
-              </Form.Group>
+            </Form.Group>
+            <Form.Group className="d-flex flex-row justify-content-between mx-2">
+              <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
+                {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
+                  {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
+              </Button>
+              <Button variant="secondary" onClick={() => props.hide(false)}>
+                Back to List
+              </Button>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer className="text-black">

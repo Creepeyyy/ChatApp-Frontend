@@ -58,7 +58,7 @@ function ForumThreadPage(props) {
         <div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 mt-3">
           {forums.map(item => {
             return (
-              <div className="col">
+              <div className="col" key={item._id}>
                 <div className="card text-white">
                   <div className="card-body">
                     <img className="card-img-top" src={forumPic} alt="Card cap" />
@@ -66,23 +66,25 @@ function ForumThreadPage(props) {
                     <p className="card-text">{item.description}</p>
                     <div className="d-flex justify-content-between">
                       <a href="*" className="btn btn-primary">Visit Forum</a>
-                      <a href="*" className="btn btn-secondary">
-                        <i className="bi bi-pencil-fill"></i>
-                        <p>Edit Forum</p>
-                      </a>
+                      <div>
+                        <a href="*" className="btn btn-secondary">
+                          <i className="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="*" className="btn btn-danger ms-1">
+                          <i className="bi bi-trash"></i>
+                        </a>
+                      </div>
                     </div>
-
                   </div>
                 </div>
               </div>
-
             );
           })}
 
         </div>
       </div>
 
-      
+
 
     </div>
   )

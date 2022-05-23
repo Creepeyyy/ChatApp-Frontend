@@ -10,10 +10,10 @@ function App() {
   const { token } = useSelector((state) => state.authentication);
   return (
     <div className="App bg-dark">
-      <TopMenu />
       <BrowserRouter>
+        <TopMenu />
         <Routes>
-          <Route path='*' element={<NotFound/>} />
+          <Route path='*' element={<NotFound />} />
           <Route path="/" element={<PublicPage />} />
           {token ? <Route path="/my/*" element={<PrivatePage />} /> : <Route path="/my" element={<Navigate to="/" />} />}
         </Routes>

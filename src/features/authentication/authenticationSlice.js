@@ -14,6 +14,8 @@ export const authenticationSlice = createSlice({
     name: "authentication",
     initialState: {
         userID: null,
+        isAdministrator: false,
+        userName: '',
         isError: false,
         isSuccess: false,
         isPending: false,
@@ -40,6 +42,8 @@ export const authenticationSlice = createSlice({
                 state.isPending = false;
                 state.isSuccess = true;
                 state.userID = action.payload.userID;
+                state.userName = action.payload.userName;
+                state.isAdministrator = action.payload.isAdministrator;
                 state.token = action.payload.token;
             })
             .addCase(login.rejected, (state, action) => {
