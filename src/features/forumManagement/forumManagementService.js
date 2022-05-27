@@ -19,7 +19,7 @@ const getForums = () => {
     })
 }
 
-const deleteForum = (token, userID) => {
+const deleteForum = (token, forumID) => {
     function getDeletionMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -34,14 +34,14 @@ const deleteForum = (token, userID) => {
         method: 'DELETE',
         headers: {'Authorization': token}
     };
-    return fetch(`https://localhost/users/${userID}`, requestOptions)
+    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
     .then(getDeletionMessage)
     .then(message => {
-        return message + userID;
+        return message + forumID;
     })
 }
 
-const createForum = (token, user) => {
+const createForum = (token, forum) => {
     function getCreationMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -55,16 +55,16 @@ const createForum = (token, user) => {
     const requestOptions = {
         method: 'POST',
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
-        body: JSON.stringify(user)
+        body: JSON.stringify(forum)
     };
-    return fetch(`https://localhost/users`, requestOptions)
+    return fetch(`https://localhost/forumThreads`, requestOptions)
     .then(getCreationMessage)
-    .then(user => {
-        return user;
+    .then(forum => {
+        return forum;
     })
 }
 
-const updateForum = (token, userID, updateData) => {
+const updateForum = (token, forumID, updateData) => {
     function getUpdateMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -75,19 +75,18 @@ const updateForum = (token, userID, updateData) => {
             }
         })
     }
-    if(updateData.password === "") {
-        delete updateData.password
+    if(updateData.name === "") {
+        return Promise.reject("Bitte fülle alle Pflichtfelder aus!");
     }
     const requestOptions = {
         method: 'PUT',
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    console.log(requestOptions.body.newsletter);
-    return fetch(`https://localhost/users/${userID}`, requestOptions)
+    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
     .then(getUpdateMessage)
-    .then(user => {
-        return user;
+    .then(forum => {
+        return forum;
     })
 }
 

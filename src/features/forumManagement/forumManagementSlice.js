@@ -10,6 +10,15 @@ export const getForums = createAsyncThunk('getForums', async (thunkAPI) => {
     }
 });
 
+export const deleteForum = createAsyncThunk('deleteForum', async (data, thunkAPI) => {
+    try {
+        return await userManagementService.deleteForum(data.token, data.forumID);
+    } catch (e) {
+        console.log(e);
+        return thunkAPI.rejectWithValue(e);
+    }
+});
+
 export const forumManagementSlice = createSlice({
     name: "forumManagement",
     initialState: {
@@ -29,21 +38,27 @@ export const forumManagementSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addMatcher(isAnyOf(getForums.pending), (state, action) => {
-                state.isPending = true;
-            })
-            .addMatcher(isAnyOf(getForums.fulfilled), (state, action) => {
-                state.isPending = false;
-                state.isSuccess = true;
-                state.isError = false;
-                state.forums = action.payload;
-            })
-            .addMatcher(isAnyOf(getForums.rejected), (state, action) => {
-                state.isPending = false;
-                state.isError = true;
-                state.isSuccess = false;
-                state.message = action.payload;
-            })
+        .addCase(deleteForum.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.isSuccess = true;
+            state.isError = false;
+            state.message = action.payload;
+        })
+        .addCase(getForums.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.isSuccess = true;
+            state.isError = false;
+            state.forums = action.payload;
+        })
+        .addMatcher(isAnyOf(getForums.pending, deleteForum.pending), (state, action) => {
+            state.isPending = true;
+        })
+        .addMatcher(isAnyOf(getForums.rejected, deleteForum.rejected), (state, action) => {
+            state.isPending = false;
+            state.isError = true;
+            state.isSuccess = false;
+            state.message = action.payload;
+        })
     },
 });
 

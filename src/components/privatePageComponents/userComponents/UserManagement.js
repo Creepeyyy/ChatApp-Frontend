@@ -23,7 +23,6 @@ function UserManagement(props) {
         }
         dispatch(getUser(props.token))
     }, [props, isError, isSuccess, message, dispatch])
-
     return (
         <div>
             <div className="container-fluid table-responsive" id="admintools">
@@ -51,7 +50,7 @@ function UserManagement(props) {
                         </div>
                     </div>
                 </div>
-                {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting User...{isPending}</div> :
+                {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting users...{isPending}</div> :
                     <table className="table">
                         <thead>
                             <tr>
@@ -69,11 +68,11 @@ function UserManagement(props) {
                             {user.map(item => {
                                 return (
                                     <tr id={`UserItem${item.userID}`} key={item.userID}>
-                                        <th scope="row">{item.userID}</th>
+                                        <th scope="row">{item.userID.length > 15 ? item.userID.substring(0, 15) + "..." : item.userID}</th>
                                         <td>{item.userName}</td>
                                         <td>{item.isAdministrator.toString()}</td>
                                         <td>{item.verified.toString()}</td>
-                                        <td>{item.email}</td>
+                                        <td>{item.email ? (item.email.length > 45 ? item.email.substring(0, 45) + "..." : item.email) : item.email}</td>
                                         <td>{item.newsletter.toString()}</td>
                                         <td>
                                             <button id={`EditButton${item.userID}`} className="btn btn-secondary" onClick={() => setUpdateDialog(item)}>

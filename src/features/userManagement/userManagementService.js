@@ -84,7 +84,6 @@ const updateUser = (token, userID, updateData) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    console.log(requestOptions.body.newsletter);
     return fetch(`https://localhost/users/${userID}`, requestOptions)
     .then(getUpdateMessage)
     .then(user => {

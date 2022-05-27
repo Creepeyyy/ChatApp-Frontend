@@ -24,9 +24,9 @@ function PrivatePage() {
             </div>
             <div className="main">
                 <Routes>
-                    <Route path="verify" element={<VerificationPage />} />
-                    <Route path="profile" element={<AccountEditorWidget />} />
-                    <Route path="forums" element={<ForumThreadPage />} />
+                    <Route path="verify" element={<VerificationPage token={token} />} />
+                    <Route path="profile" element={<AccountEditorWidget token={token} />} />
+                    <Route path="forums" element={<ForumThreadPage token={token} />} />
                     <Route path="" element={(
                         <div id="privateLandingPage">
                             <h1>Willkommen zurück {userID}!</h1>

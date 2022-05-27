@@ -26,6 +26,11 @@ function UserWidget(props) {
     }
   }
 
+  const close = () => {
+    props.hide(false);
+    dispatch(reset());
+  }
+
   useEffect(() => {
     if (isError) {
       console.log(message);
@@ -41,17 +46,14 @@ function UserWidget(props) {
 
   return (
     <div>
-      <Modal show={props.show ? true : false} onHide={() => {
-        props.hide(false);
-        dispatch(reset());
-      }}>
+      <Modal show={props.show ? true : false} onHide={() => close()}>
         <Modal.Header closeButton>
-          <Modal.Title className="text-black">{props.user ? "Usereditor" : "Usererstellung"}</Modal.Title>
+          <Modal.Title className="text-black">{props.user ? "User Editor" : "User Creator"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" >
-              <Form.Label className="text-black">UserID*</Form.Label>
+              <Form.Label className="text-black">{props.user ? "UserID" : "UserID*"}</Form.Label>
               <Form.Control id="UserIDInput" type="text"
                 placeholder={props.user ? props.user.userID : 'userID'}
                 name="userID" onChange={(e) => setInput({ ...input, userID: e.target.value })}
@@ -62,7 +64,7 @@ function UserWidget(props) {
               <Form.Control id="UserNameInput" type="text" placeholder={props.user ? props.user.userName : 'userName'} defaultValue={props.user ? props.user.userName : ''} name="userName" onChange={(e) => setInput({ ...input, userName: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
-              <Form.Label className="text-black">Passwort*</Form.Label>
+              <Form.Label className="text-black">{props.user ? "Password" : "Password*"}</Form.Label>
               <Form.Control id="PasswordInput" type="password" placeholder='password' name="password" onChange={(e) => setInput({ ...input, password: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3" >
@@ -76,7 +78,7 @@ function UserWidget(props) {
                 id="isAdministratorInput"
                 onChange={(e) => setInput({ ...input, isAdministrator: e.target.checked })}
                 label={
-                  <p className="text-black">ist Admin?</p>
+                  <p className="text-black">is admin?</p>
                 }
                 defaultChecked={input.isAdministrator}
               />
@@ -86,7 +88,7 @@ function UserWidget(props) {
                 id="isNewsletterEnjoyerInput"
                 onChange={(e) => setInput({ ...input, newsletter: e.target.checked })}
                 label={
-                  <p className="text-black">erhält Newsletter?</p>
+                  <p className="text-black">receives newsletter?</p>
                 }
                 defaultChecked={input.newsletter}
               />
@@ -94,18 +96,20 @@ function UserWidget(props) {
             <Form.Group className="d-flex flex-row justify-content-between mx-2">
               <Button id={props.user ? "SaveUserButton" : "CreateUserButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                 {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                  {props.user ? 'Creating new' : 'Updating'} user...</>) : (<>Submit user</>)}
+                  {props.user ? 'Updating ' : 'Creating new '} user...</>) : (<>Submit user</>)}
               </Button>
-              <Button variant="secondary" onClick={() => props.hide(false)}>
+              <Button variant="secondary" id={props.user ? "CancelEditUserButton" : "CancelCreateUserButton"} onClick={() => close()}>
                 Back to List
               </Button>
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="text-black">
-          {isError ? <p className="me-auto text-danger">Bitte fülle alle Pflichtfelder aus!</p> : <></>}
-          *Pflichfelder
-        </Modal.Footer>
+        {props.user ? <></> :
+          <Modal.Footer className="text-black">
+            {isError ? <p className="me-auto text-danger">Bitte fülle alle Pflichtfelder aus!</p> : <></>}
+            *Pflichfelder
+          </Modal.Footer>
+        }
       </Modal>
     </div>
   )
