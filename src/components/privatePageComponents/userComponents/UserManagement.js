@@ -23,10 +23,11 @@ function UserManagement(props) {
         }
         dispatch(getUser(props.token))
     }, [props, isError, isSuccess, message, dispatch])
+    
     return (
         <div>
             <div className="container-fluid table-responsive" id="admintools">
-                <div className="row row-cols-1 row-cols-sm-3 my-2">
+                <div className="row row-cols-1 row-cols-sm-3">
                     <div className="col offset-sm-4 text-white text-center">
                         <h1>Users</h1>
                     </div>

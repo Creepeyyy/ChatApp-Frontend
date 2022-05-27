@@ -51,7 +51,7 @@ function ForumWidget(props) {
                     <Form>
                         <Form.Group className="mb-3" >
                             <Form.Label className="text-black">Forum name*</Form.Label>
-                            <Form.Control id="UserIDInput" type="text"
+                            <Form.Control id="ForumThreadNameInput" type="text"
                                 placeholder={props.forum ? props.forum.name : 'name'}
                                 defaultValue={props.forum ? props.forum.name : ''}
                                 name="name"
@@ -59,7 +59,7 @@ function ForumWidget(props) {
                         </Form.Group>
                         <Form.Group className="mb-3" >
                             <Form.Label className="text-black">Description</Form.Label>
-                            <Form.Control id="UserNameInput" as="textarea" rows={5}
+                            <Form.Control id="ForumThreadDescriptionInput" as="textarea" rows={5}
                                 placeholder={props.forum ? props.forum.description : 'description'}
                                 defaultValue={props.forum ? props.forum.description : ''}
                                 name="description"
@@ -67,11 +67,11 @@ function ForumWidget(props) {
                         </Form.Group>
 
                         <Form.Group className="d-flex flex-row justify-content-between mx-2">
-                            <Button id={props.forum ? "SaveForumButton" : "CreateForumButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
+                            <Button id={props.forum ? "SaveForumThreadButton" : "CreateForumThreadButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                                 {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
                                     {props.user ? 'Creating new' : 'Updating'} forum...</>) : (<>Submit forum</>)}
                             </Button>
-                            <Button variant="secondary" id={props.user ? "CancelEditUserButton" : "CancelCreateUserButton"} onClick={() => close()}>
+                            <Button variant="secondary" id={props.user ? "CancelEditForumThreadButton" : "CancelCreateForumThreadButton"} onClick={() => close()}>
                                 Back to List
                             </Button>
                         </Form.Group>

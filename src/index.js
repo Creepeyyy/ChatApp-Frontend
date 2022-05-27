@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './layout/css/SideMenu.css'
 import "./layout/css/PrivatePage.css"
+import './layout/css/SideMenu.css'
+import './layout/css/App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Provider } from 'react-redux';
 import store from "./app/store";

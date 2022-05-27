@@ -12,7 +12,8 @@
 body {
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
+    background-color: #212529;
+
 }
 
 h1 {

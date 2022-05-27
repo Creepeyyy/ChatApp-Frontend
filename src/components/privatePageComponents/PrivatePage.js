@@ -12,16 +12,10 @@ import LogoutButton from '../LogoutButton';
 function PrivatePage() {
 
     const { userID, token, isAdministrator } = useSelector((state) => state.authentication);
-    useEffect(() => {
-        // change background color to bg-dark
-        document.body.className = "bg-dark";
-    }, []);
 
     return (
-        <div>
-            <div id="PrivatePage">
-                <SideMenu userID={userID} isAdministrator={isAdministrator} />
-            </div>
+        <div id="PrivatePage">
+            <SideMenu userID={userID} isAdministrator={isAdministrator} />
             <div className="main">
                 <Routes>
                     <Route path="verify" element={<VerificationPage token={token} />} />
@@ -34,7 +28,6 @@ function PrivatePage() {
                         </div>)} />
                     {isAdministrator ? <Route path="userManagement" element={<UserManagement token={token} />} /> : <></>}
                 </Routes>
-                {/*                 {switchMenu(showMenu.name)} */}
             </div>
         </div>
     )

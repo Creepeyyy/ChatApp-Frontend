@@ -1,4 +1,3 @@
-import './layout/css/App.css';
 import PublicPage from './components/publicPageComponents/PublicPage';
 import TopMenu from './components/TopMenu';
 import PrivatePage from './components/privatePageComponents/PrivatePage'

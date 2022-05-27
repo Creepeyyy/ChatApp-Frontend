@@ -13,10 +13,6 @@
     color: #bfbfbf;
 }
 
-.main {
-    max-width: 1745px;
-}
-
 #admintools .table td {
     max-width: 18rem;
     overflow: hidden;
@@ -54,7 +50,7 @@
         margin-left: 175px;
     }
 
-    #popover-btn, #forumbtn {
+    #popover-btn, #OpenCreateForumThreadDialogButton {
         width: 15rem;
     }
 

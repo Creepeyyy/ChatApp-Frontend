@@ -23,8 +23,8 @@ function ConfirmationDialog(props) {
                     <p className="text-black">Are you sure you want to delete this forum?</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" id="DeleteUserCancel" onClick={() => props.hide(false)}>Close</Button>
-                    <Button variant="primary" id="DeleteUserConfirm" onClick={() => dForum()}>Delete forum</Button>
+                    <Button variant="secondary" id="DeleteForumThreadCancel" onClick={() => props.hide(false)}>Close</Button>
+                    <Button variant="primary" id="DeleteForumThreadConfirm" onClick={() => dForum()}>Delete forum</Button>
                 </Modal.Footer>
             </Modal>
         </div>
