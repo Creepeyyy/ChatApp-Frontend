@@ -1,5 +1,5 @@
-const getForums = () => {
-    function getAllForums(response) {
+const getMessages = (forumID) => {
+    function getAllMessages(response) {
         return response.text().then(text => {
             if(!response.ok) {
                 const error = response.statusText;
@@ -12,14 +12,14 @@ const getForums = () => {
     const requestOptions = {
         method: 'GET'
     };
-    return fetch('https://localhost/forumThreads', requestOptions)
-    .then(getAllForums)
-    .then(forums => {
-        return forums;
+    return fetch(`https://localhost/forumThreads/${forumID}/forumMessages`, requestOptions)
+    .then(getAllMessages)
+    .then(messages => {
+        return messages;
     })
 }
 
-const deleteForum = (token, forumID) => {
+const deleteMessage = (token, messageID) => {
     function getDeletionMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -34,14 +34,14 @@ const deleteForum = (token, forumID) => {
         method: 'DELETE',
         headers: {'Authorization': token}
     };
-    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
+    return fetch(`https://localhost/forumMessages/${messageID}`, requestOptions)
     .then(getDeletionMessage)
     .then(message => {
-        return message + forumID;
+        return message;
     })
 }
 
-const createForum = (token, forum) => {
+const createMessage = (token, message) => {
     function getCreationMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -55,16 +55,16 @@ const createForum = (token, forum) => {
     const requestOptions = {
         method: 'POST',
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
-        body: JSON.stringify(forum)
+        body: JSON.stringify(message)
     };
-    return fetch(`https://localhost/forumThreads`, requestOptions)
+    return fetch(`https://localhost/forumMessages`, requestOptions)
     .then(getCreationMessage)
-    .then(forum => {
-        return forum;
+    .then(message => {
+        return message;
     })
 }
 
-const updateForum = (token, forumID, updateData) => {
+const updateMessage = (token, messageID, updateData) => {
     function getUpdateMessage(response) {
         return response.text().then(text => {
             if(!response.ok) {
@@ -83,18 +83,18 @@ const updateForum = (token, forumID, updateData) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
+    return fetch(`https://localhost/forumMessages/${messageID}`, requestOptions)
     .then(getUpdateMessage)
-    .then(forum => {
-        return forum;
+    .then(message => {
+        return message;
     })
 }
 
-const forumManagementService = {
-    getForums,
-    deleteForum,
-    createForum,
-    updateForum
+const messageManagementService = {
+    getMessages,
+    deleteMessage,
+    createMessage,
+    updateMessage
 }
 
-export default forumManagementService;
+export default messageManagementService;
