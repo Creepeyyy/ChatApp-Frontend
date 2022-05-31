@@ -1,18 +1,15 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { createForum, reset, updateForum } from '../../../features/forumManagement/forumDialogSlice';
-import { reset as resetForums } from '../../../features/forumManagement/forumManagementSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetGet, createForum, reset, updateForum } from '../../../features/forumManagement/forumManagementSlice';
 
 function ForumWidget(props) {
     const [input, setInput] = useState({});
 
     const dispatch = useDispatch();
-    let { isPending, isError, isSuccess, message } = useSelector((state) => state.forumDialogManagement);
+    let { isPending, isError, isSuccess, message } = useSelector((state) => state.forumManagement);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,7 +32,7 @@ function ForumWidget(props) {
         if (isSuccess) {
             console.log("Created: ");
             console.log(message);
-            dispatch(resetForums());
+            dispatch(resetGet());
             dispatch(reset());
             props.hide(false);
         }

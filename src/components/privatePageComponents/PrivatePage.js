@@ -8,6 +8,7 @@ import AccountEditorWidget from './AccountEditorWidget';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import LogoutButton from '../LogoutButton';
+import ForumMessagePage from './forumMessageComponents/ForumMessagePage';
 
 function PrivatePage() {
 
@@ -20,13 +21,14 @@ function PrivatePage() {
                 <Routes>
                     <Route path="verify" element={<VerificationPage token={token} />} />
                     <Route path="profile" element={<AccountEditorWidget token={token} />} />
-                    <Route path="forums" element={<ForumThreadPage token={token} />} />
+                    <Route path="forums" element={<ForumThreadPage token={token} user={{ userID: userID, isAdministrator: isAdministrator }} />} />
                     <Route path="" element={(
                         <div id="privateLandingPage">
                             <h1>Willkommen zurück {userID}!</h1>
                             <LogoutButton />
                         </div>)} />
                     {isAdministrator ? <Route path="userManagement" element={<UserManagement token={token} />} /> : <></>}
+                    <Route path="forums/:id" element={<ForumMessagePage token={token} />} />
                 </Routes>
             </div>
         </div>

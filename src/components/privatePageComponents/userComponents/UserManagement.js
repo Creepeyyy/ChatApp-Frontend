@@ -11,18 +11,23 @@ function UserManagement(props) {
     const [updateDialog, setUpdateDialog] = useState(false);
     const [confirmationDialog, setConfirmationDialog] = useState(false);
 
-    let { user, isPending, isError, isSuccess, message } = useSelector((state) => state.userManagement);
+    let { user, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.userManagement);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isError) {
-            console.log(message);
+        if(!(isGetError || isGetSuccess)) {
+            dispatch(getUser(props.token))
+            return;
         }
-        if (isSuccess) {
+        if (isGetError) {
+            console.log("error");
+            return;
+        }
+        if (isGetSuccess) {
             console.log("success");
+            return;
         }
-        dispatch(getUser(props.token))
-    }, [props, isError, isSuccess, message, dispatch])
+    }, [props, isGetError, isGetSuccess, dispatch])
     
     return (
         <div>
@@ -51,7 +56,7 @@ function UserManagement(props) {
                         </div>
                     </div>
                 </div>
-                {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting users...{isPending}</div> :
+                {isGetPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting users...{isGetPending}</div> :
                     <table className="table">
                         <thead>
                             <tr>

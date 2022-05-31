@@ -1,16 +1,26 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteForum } from '../../../features/forumManagement/forumManagementSlice';
+import { deleteForum, reset, resetGet } from '../../../features/forumManagement/forumManagementSlice';
 
 function ConfirmationDialog(props) {
 
     const dispatch = useDispatch();
+    let { isError, isSuccess } = useSelector((state) => state.forumManagement);
 
     const dForum = () => {
         dispatch(deleteForum({ token: props.token, forumID: props.forum._id }));
-        props.hide(false);
     }
+
+    useEffect(() => {
+        if (isError || isSuccess) {
+            dispatch(resetGet());
+            dispatch(reset());
+            props.hide(false);
+        }
+    }, [props, isError, isSuccess, dispatch])
 
     return (
         <div>

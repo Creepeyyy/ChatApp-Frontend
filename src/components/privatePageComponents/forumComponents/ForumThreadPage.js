@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getForums } from '../../../features/forumManagement/forumManagementSlice';
 import forumPic from "../../../layout/pictures/forum.png";
 import ConfirmationDialog from './ConfirmationDialog';
@@ -12,18 +13,24 @@ function ForumThreadPage(props) {
   const [updateDialog, setUpdateDialog] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
 
-  let { forums, isPending, isError, isSuccess, message } = useSelector((state) => state.forumManagement);
+  let { forums, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.forumManagement);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isError) {
-      console.log(message);
+    if (!(isGetError || isGetSuccess)) {
+      dispatch(getForums())
+      return;
     }
-    if (isSuccess) {
+    if (isGetError) {
+      console.log("error");
+      return;
+    }
+    if (isGetSuccess) {
       console.log("success");
+      return;
     }
-    dispatch(getForums())
-  }, [props, isError, isSuccess, message, dispatch])
+
+  }, [props, isGetError, isGetSuccess, dispatch])
 
   return (
     <div className="container-fluid">
@@ -59,7 +66,7 @@ function ForumThreadPage(props) {
           </div>
         </div>
       </div>
-      {isPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting forums...{isPending}</div> :
+      {isGetPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting forums...</div> :
         <div id="ForumThreadList" className="row row-cols-1 row-cols-md-2 row-cols-xl-3 mt-3">
           {forums.map(item => {
             return (
@@ -70,14 +77,21 @@ function ForumThreadPage(props) {
                     <h5 className="card-title">{item.name.length > 75 ? item.name.substring(0, 75) + "..." : item.name}</h5>
                     <p className="card-text">{item.description ? (item.description.length > 100 ? item.description.substring(0, 100) + "..." : item.description) : item.description}</p>
                     <div className="d-flex justify-content-between">
-                      <button className="btn btn-primary">Visit Forum</button>
+                      <Link to={item._id} id="ViewForumThreadButton" className="btn btn-primary">
+                        <p>Visit Forum</p>
+                      </Link>
                       <div>
-                        <button className="btn btn-secondary" id={`EditForumThreadButton${item._id}`} onClick={() => setUpdateDialog(item)}>
-                          <i className="bi bi-pencil-fill"></i>
-                        </button>
-                        <button className="btn btn-danger ms-1" id={`DeleteForumThreadButton${item._id}`} onClick={() => setConfirmationDialog(item)}>
-                          <i className="bi bi-trash"></i>
-                        </button>
+                        {(props.user.userID === item.ownerID || props.user.isAdministrator === true) ?
+                          <>
+                            <button className="btn btn-secondary" id={`EditForumThreadButton${item._id}`} onClick={() => setUpdateDialog(item)}>
+                              <i className="bi bi-pencil-fill"></i>
+                            </button>
+                            <button className="btn btn-danger ms-1" id={`DeleteForumThreadButton${item._id}`} onClick={() => setConfirmationDialog(item)}>
+                              <i className="bi bi-trash"></i>
+                            </button>
+                          </>
+                          : <></>
+                        }
                       </div>
                     </div>
                   </div>

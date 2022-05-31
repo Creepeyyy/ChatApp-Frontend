@@ -1,11 +1,12 @@
 TODO:
--fixen, dass useEffect 2x ausgeführt wird bei Forums, Users etc.
 -ForumMessages
+
+Zusatz:
 -Verification
 -eigenes Profil bearbeiten
+-billige Suche oder sowas
 -Tests
 
-
-
-
-
+Fragen an Klinski:
+-ok, dass wenn was fehlschlägt, dann man muss es nochmal machen (dialog bleibt offen)?
+-ist es ok, dass nur user, die die actions (delete, edit) ausführen können bei forums und forummessages auch die actions sehen

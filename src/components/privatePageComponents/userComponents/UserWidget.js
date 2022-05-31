@@ -5,8 +5,7 @@ import { Form, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { createUser, reset, updateUser } from '../../../features/userManagement/userDialogSlice';
-import { reset as resetUsers } from '../../../features/userManagement/userManagementSlice';
+import { createUser, reset, resetGet, updateUser } from '../../../features/userManagement/userManagementSlice';
 
 function UserWidget(props) {
   const [input, setInput] = useState({
@@ -15,7 +14,7 @@ function UserWidget(props) {
   });
 
   const dispatch = useDispatch();
-  let { isPending, isError, isSuccess, message } = useSelector((state) => state.userDialogManagement);
+  let { isPending, isError, isSuccess, message } = useSelector((state) => state.userManagement);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +37,7 @@ function UserWidget(props) {
     if (isSuccess) {
       console.log("Created: ");
       console.log(message);
-      dispatch(resetUsers());
+      dispatch(resetGet());
       dispatch(reset());
       props.hide(false);
     }

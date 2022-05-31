@@ -1,15 +1,24 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteUser} from '../../../features/userManagement/userManagementSlice';
+import { deleteUser, reset, resetGet } from '../../../features/userManagement/userManagementSlice';
 function ConfirmationDialog(props) {
 
     const dispatch = useDispatch();
-
+    let { isError, isSuccess } = useSelector((state) => state.userManagement);
     const dUser = () => {
         dispatch(deleteUser({ token: props.token, userID: props.userID }));
-        props.hide(false);
     }
+
+    useEffect(() => {
+        if (isError || isSuccess) {
+            dispatch(resetGet());
+            dispatch(reset());
+            props.hide(false);
+        }
+    }, [props, isError, isSuccess, dispatch])
 
     return (
         <div>

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
-import userManagementService from "./forumManagementService";
+import Forum from "./forumManagementService";
 
 export const getForums = createAsyncThunk('getForums', async (thunkAPI) => {
     try {
-        return await userManagementService.getForums();
+        return await Forum.getForums();
     } catch (e) {
         console.log(e);
         return thunkAPI.rejectWithValue(e);
@@ -12,9 +12,25 @@ export const getForums = createAsyncThunk('getForums', async (thunkAPI) => {
 
 export const deleteForum = createAsyncThunk('deleteForum', async (data, thunkAPI) => {
     try {
-        return await userManagementService.deleteForum(data.token, data.forumID);
+        return await Forum.deleteForum(data.token, data.forumID);
     } catch (e) {
         console.log(e);
+        return thunkAPI.rejectWithValue(e);
+    }
+});
+
+export const createForum = createAsyncThunk('createForum', async (data, thunkAPI) => {
+    try {
+        return await Forum.createForum(data.token, data.forum);
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e);
+    }
+});
+
+export const updateForum = createAsyncThunk('updateForum', async (data, thunkAPI) => {
+    try {
+        return await Forum.updateForum(data.token, data.forumID, data.updateData);
+    } catch (e) {
         return thunkAPI.rejectWithValue(e);
     }
 });
@@ -26,6 +42,9 @@ export const forumManagementSlice = createSlice({
         isError: false,
         isSuccess: false,
         isPending: false,
+        isGetError: false,
+        isGetSuccess: false,
+        isGetPending: false,
         message: '',
     },
     reducers: {
@@ -34,26 +53,39 @@ export const forumManagementSlice = createSlice({
             state.isSuccess = false;
             state.isPending = false;
             state.message = '';
-        }
+        },
+        resetGet: (state) => {
+            state.isGetError = false;
+            state.isGetSuccess = false;
+            state.isGetPending = false;
+        },
     },
     extraReducers: (builder) => {
         builder
-        .addCase(deleteForum.fulfilled, (state, action) => {
+        .addCase(getForums.rejected, (state, action) => {
+            state.isGetPending = false;
+            state.isGetSuccess = false;
+            state.isGetError = true;
+        })
+        .addCase(getForums.fulfilled, (state, action) => {
+            state.isGetPending = false;
+            state.isGetSuccess = true;
+            state.isGetError = false;
+            state.forums = action.payload;
+        })
+        .addCase(isAnyOf(getForums.pending), (state, action) => {
+            state.isGetPending = true;
+        })
+        .addMatcher(isAnyOf(createForum.pending, updateForum.pending, deleteForum.pending), (state,action) => {
+            state.isPending = true;
+        })
+        .addMatcher(isAnyOf(createForum.fulfilled, updateForum.fulfilled, deleteForum.fulfilled), (state, action) => {
             state.isPending = false;
             state.isSuccess = true;
             state.isError = false;
             state.message = action.payload;
         })
-        .addCase(getForums.fulfilled, (state, action) => {
-            state.isPending = false;
-            state.isSuccess = true;
-            state.isError = false;
-            state.forums = action.payload;
-        })
-        .addMatcher(isAnyOf(getForums.pending, deleteForum.pending), (state, action) => {
-            state.isPending = true;
-        })
-        .addMatcher(isAnyOf(getForums.rejected, deleteForum.rejected), (state, action) => {
+        .addMatcher(isAnyOf(createForum.rejected, updateForum.rejected, deleteForum.rejected), (state, action) => {
             state.isPending = false;
             state.isError = true;
             state.isSuccess = false;
@@ -63,6 +95,6 @@ export const forumManagementSlice = createSlice({
 });
 
 
-export const { reset } = forumManagementSlice.actions;
+export const { reset, resetGet } = forumManagementSlice.actions;
 
 export default forumManagementSlice.reducer;
