@@ -1,3 +1,5 @@
+import config from 'react-global-configuration';
+
 const getForums = () => {
     function getAllForums(response) {
         return response.text().then(text => {
@@ -12,7 +14,7 @@ const getForums = () => {
     const requestOptions = {
         method: 'GET'
     };
-    return fetch('https://localhost/forumThreads', requestOptions)
+    return fetch(`${config.get('url')}forumThreads`, requestOptions)
     .then(getAllForums)
     .then(forums => {
         return forums;
@@ -34,7 +36,7 @@ const deleteForum = (token, forumID) => {
         method: 'DELETE',
         headers: {'Authorization': token}
     };
-    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
+    return fetch(`${config.get('url')}forumThreads/${forumID}`, requestOptions)
     .then(getDeletionMessage)
     .then(message => {
         return message + forumID;
@@ -57,7 +59,7 @@ const createForum = (token, forum) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(forum)
     };
-    return fetch(`https://localhost/forumThreads`, requestOptions)
+    return fetch(`${config.get('url')}forumThreads`, requestOptions)
     .then(getCreationMessage)
     .then(forum => {
         return forum;
@@ -83,7 +85,7 @@ const updateForum = (token, forumID, updateData) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    return fetch(`https://localhost/forumThreads/${forumID}`, requestOptions)
+    return fetch(`${config.get('url')}forumThreads/${forumID}`, requestOptions)
     .then(getUpdateMessage)
     .then(forum => {
         return forum;

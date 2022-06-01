@@ -1,3 +1,5 @@
+import config from 'react-global-configuration';
+
 const getMessages = (forumID) => {
     function getAllMessages(response) {
         return response.text().then(text => {
@@ -12,7 +14,8 @@ const getMessages = (forumID) => {
     const requestOptions = {
         method: 'GET'
     };
-    return fetch(`https://localhost/forumThreads/${forumID}/forumMessages`, requestOptions)
+    
+    return fetch(`${config.get('url')}forumThreads/${forumID}/forumMessages`, requestOptions)
     .then(getAllMessages)
     .then(messages => {
         return messages;
@@ -34,7 +37,7 @@ const deleteMessage = (token, messageID) => {
         method: 'DELETE',
         headers: {'Authorization': token}
     };
-    return fetch(`https://localhost/forumMessages/${messageID}`, requestOptions)
+    return fetch(`${config.get('url')}forumMessages/${messageID}`, requestOptions)
     .then(getDeletionMessage)
     .then(message => {
         return message;
@@ -52,12 +55,13 @@ const createMessage = (token, message) => {
             }
         })
     }
+    console.log(message);
     const requestOptions = {
         method: 'POST',
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(message)
     };
-    return fetch(`https://localhost/forumMessages`, requestOptions)
+    return fetch(`${config.get('url')}forumMessages`, requestOptions)
     .then(getCreationMessage)
     .then(message => {
         return message;
@@ -83,7 +87,7 @@ const updateMessage = (token, messageID, updateData) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    return fetch(`https://localhost/forumMessages/${messageID}`, requestOptions)
+    return fetch(`${config.get('url')}forumMessages/${messageID}`, requestOptions)
     .then(getUpdateMessage)
     .then(message => {
         return message;

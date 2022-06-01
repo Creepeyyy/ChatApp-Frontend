@@ -10,13 +10,19 @@ function UserManagement(props) {
     const [createDialog, setCreateDialog] = useState(false);
     const [updateDialog, setUpdateDialog] = useState(false);
     const [confirmationDialog, setConfirmationDialog] = useState(false);
+    const [started, setStarted] = useState(false);
 
     let { user, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.userManagement);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(started === false) {
+            setStarted(true);
+            dispatch(getUser(props.token));
+            return;
+        }
         if(!(isGetError || isGetSuccess)) {
-            dispatch(getUser(props.token))
+            dispatch(getUser(props.token));
             return;
         }
         if (isGetError) {
@@ -27,7 +33,7 @@ function UserManagement(props) {
             console.log("success");
             return;
         }
-    }, [props, isGetError, isGetSuccess, dispatch])
+    }, [props, started, isGetError, isGetSuccess, dispatch])
     
     return (
         <div>

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import Message from "./forumMessageManagementService";
 
-export const getMessages = createAsyncThunk('getMessages', async (MessageID, thunkAPI) => {
+export const getMessages = createAsyncThunk('getMessages', async (forumID, thunkAPI) => {
     try {
-        return await Message.getMessages(MessageID);
+        return await Message.getMessages(forumID);
     } catch (e) {
         console.log(e);
         return thunkAPI.rejectWithValue(e);

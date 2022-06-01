@@ -1,12 +1,13 @@
 import { Buffer } from "buffer"
 import jwt_decode from 'jwt-decode'
+import config from 'react-global-configuration';
 
 const login = (userID, password) => {
     const requestOptions = {
         method: 'GET',
         headers: {'Authorization': 'Basic ' + Buffer.from(userID + ":" + password, "utf-8").toString("base64")}
     };
-    return fetch('https://localhost/authenticate', requestOptions)
+    return fetch(`${config.get('url')}authenticate`, requestOptions)
     .then(handleResponse)
     .then(userSession => {
         return userSession;

@@ -40,9 +40,11 @@
         max-width: 10rem;
     }
 
-    #messageContainer {
-        width: calc(100vw - 50px);
+    #sendbar {
+        width: calc(100vw - 66px);
+        /* 50px (Sidebar) + 16px (margin) */
     }
+
 }
 
 @media all and (min-width: 992px) {
@@ -58,8 +60,9 @@
         max-width: 15rem;
     }
 
-    #messageContainer {
-        width: calc(100vw - 175px);
+    #sendbar {
+        width: calc(100vw - 191px);
+        /* 175px (Sidebar) + 16px (margin) */
     }
 
 }
@@ -87,7 +90,6 @@
 #sendbar {
     position: fixed;
     bottom: 0.5rem;
-    width: inherit;
 }
 
 .card-body a p {
@@ -110,4 +112,8 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+}
+
+#messagediv{
+    margin-bottom: 4.5rem;
 }

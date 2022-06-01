@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetGet, createForum, reset, updateForum } from '../../../features/forumManagement/forumManagementSlice';
 
-function ForumWidget(props) {
+function ForumThreadWidget(props) {
     const [input, setInput] = useState({});
 
     const dispatch = useDispatch();
@@ -66,9 +66,9 @@ function ForumWidget(props) {
                         <Form.Group className="d-flex flex-row justify-content-between mx-2">
                             <Button id={props.forum ? "SaveForumThreadButton" : "CreateForumThreadButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                                 {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                                    {props.user ? 'Creating new' : 'Updating'} forum...</>) : (<>Submit forum</>)}
+                                    {props.forum ? 'Creating new' : 'Updating'} forum...</>) : (<>Submit forum</>)}
                             </Button>
-                            <Button variant="secondary" id={props.user ? "CancelEditForumThreadButton" : "CancelCreateForumThreadButton"} onClick={() => close()}>
+                            <Button variant="secondary" id={props.forum ? "CancelEditForumThreadButton" : "CancelCreateForumThreadButton"} onClick={() => close()}>
                                 Back to List
                             </Button>
                         </Form.Group>
@@ -83,4 +83,4 @@ function ForumWidget(props) {
     )
 }
 
-export default ForumWidget
+export default ForumThreadWidget

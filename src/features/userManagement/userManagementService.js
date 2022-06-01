@@ -1,3 +1,5 @@
+import config from 'react-global-configuration';
+
 const getUser = (token) => {
     function getAllUser(response) {
         return response.text().then(text => {
@@ -13,7 +15,7 @@ const getUser = (token) => {
         method: 'GET',
         headers: {'Authorization': token}
     };
-    return fetch('https://localhost/users', requestOptions)
+    return fetch(`${config.get('url')}users`, requestOptions)
     .then(getAllUser)
     .then(users => {
         return users;
@@ -35,7 +37,7 @@ const deleteUser = (token, userID) => {
         method: 'DELETE',
         headers: {'Authorization': token}
     };
-    return fetch(`https://localhost/users/${userID}`, requestOptions)
+    return fetch(`${config.get('url')}users/${userID}`, requestOptions)
     .then(getDeletionMessage)
     .then(message => {
         return message + userID;
@@ -58,7 +60,7 @@ const createUser = (token, user) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(user)
     };
-    return fetch(`https://localhost/users`, requestOptions)
+    return fetch(`${config.get('url')}users`, requestOptions)
     .then(getCreationMessage)
     .then(user => {
         return user;
@@ -84,7 +86,7 @@ const updateUser = (token, userID, updateData) => {
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
         body: JSON.stringify(updateData)
     };
-    return fetch(`https://localhost/users/${userID}`, requestOptions)
+    return fetch(`${config.get('url')}users/${userID}`, requestOptions)
     .then(getUpdateMessage)
     .then(user => {
         return user;

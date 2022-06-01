@@ -4,6 +4,10 @@ import PrivatePage from './components/privatePageComponents/PrivatePage'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NotFound from './components/NotFound';
+import config from 'react-global-configuration';
+import configuration from './config/config';
+
+config.set(configuration);
 
 function App() {
   const { token } = useSelector((state) => state.authentication);

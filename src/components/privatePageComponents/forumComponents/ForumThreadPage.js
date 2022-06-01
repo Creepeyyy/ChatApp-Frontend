@@ -6,19 +6,25 @@ import { Link } from 'react-router-dom';
 import { getForums } from '../../../features/forumManagement/forumManagementSlice';
 import forumPic from "../../../layout/pictures/forum.png";
 import ConfirmationDialog from './ConfirmationDialog';
-import ForumWidget from './ForumThreadWidget';
+import ForumThreadWidget from './ForumThreadWidget';
 
 function ForumThreadPage(props) {
   const [createDialog, setCreateDialog] = useState(false);
   const [updateDialog, setUpdateDialog] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
+  const [started, setStarted] = useState(false);
 
   let { forums, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.forumManagement);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!(isGetError || isGetSuccess)) {
+    if (started === false) {
+      setStarted(true);
       dispatch(getForums())
+      return;
+    }
+    if (!(isGetError || isGetSuccess)) {
+      dispatch(getForums());
       return;
     }
     if (isGetError) {
@@ -30,7 +36,7 @@ function ForumThreadPage(props) {
       return;
     }
 
-  }, [props, isGetError, isGetSuccess, dispatch])
+  }, [started, isGetError, isGetSuccess, dispatch])
 
   return (
     <div className="container-fluid">
@@ -101,8 +107,8 @@ function ForumThreadPage(props) {
           })}
         </div>
       }
-      {createDialog ? <ForumWidget show={createDialog} hide={setCreateDialog} token={props.token} /> : <></>}
-      {updateDialog ? <ForumWidget show={updateDialog} hide={setUpdateDialog} token={props.token} forum={updateDialog} /> : <></>}
+      {createDialog ? <ForumThreadWidget show={createDialog} hide={setCreateDialog} token={props.token} /> : <></>}
+      {updateDialog ? <ForumThreadWidget show={updateDialog} hide={setUpdateDialog} token={props.token} forum={updateDialog} /> : <></>}
       {confirmationDialog ? <ConfirmationDialog show={confirmationDialog} hide={setConfirmationDialog} token={props.token} forum={confirmationDialog} /> : <></>}
     </div>
   )
