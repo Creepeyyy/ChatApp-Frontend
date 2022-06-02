@@ -66,7 +66,7 @@ function ForumThreadWidget(props) {
                         <Form.Group className="d-flex flex-row justify-content-between mx-2">
                             <Button id={props.forum ? "SaveForumThreadButton" : "CreateForumThreadButton"} variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
                                 {isPending ? (<><span className="spinner-border spinner-border-sm" role="status"></span>
-                                    {props.forum ? 'Creating new' : 'Updating'} forum...</>) : (<>Submit forum</>)}
+                                    {props.forum ? 'Updating' : 'Creating new'} forum...</>) : (<>Submit forum</>)}
                             </Button>
                             <Button variant="secondary" id={props.forum ? "CancelEditForumThreadButton" : "CancelCreateForumThreadButton"} onClick={() => close()}>
                                 Back to List

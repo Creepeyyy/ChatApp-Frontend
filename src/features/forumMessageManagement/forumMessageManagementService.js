@@ -79,9 +79,6 @@ const updateMessage = (token, messageID, updateData) => {
             }
         })
     }
-    if(updateData.name === "") {
-        return Promise.reject("Bitte fülle alle Pflichtfelder aus!");
-    }
     const requestOptions = {
         method: 'PUT',
         headers: {'Authorization': token, 'Content-Type': 'application/json'},
