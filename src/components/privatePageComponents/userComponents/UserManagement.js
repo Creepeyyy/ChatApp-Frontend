@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../../../features/userManagement/userManagementSlice';
@@ -16,12 +17,12 @@ function UserManagement(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(started === false) {
+        if (started === false) {
             setStarted(true);
             dispatch(getUser(props.token));
             return;
         }
-        if(!(isGetError || isGetSuccess)) {
+        if (!(isGetError || isGetSuccess)) {
             dispatch(getUser(props.token));
             return;
         }
@@ -34,7 +35,7 @@ function UserManagement(props) {
             return;
         }
     }, [props, started, isGetError, isGetSuccess, dispatch])
-    
+
     return (
         <div>
             <div className="container-fluid table-responsive" id="admintools">
@@ -48,16 +49,15 @@ function UserManagement(props) {
                                 <input type="search" id="search" className="form-control" placeholder="Search.." />
                             </div>
                             <div className="input-group-append">
-                                <button type="button"
-                                    className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                                    data-bs-toggle="dropdown" data-bs-target="#filter">
-                                </button>
+                                <Dropdown as={ButtonGroup} >
+                                    <Dropdown.Toggle variant='outline-secondary' />
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item>byID</Dropdown.Item>
+                                        <Dropdown.Item>byName</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                                 <button type="button" className="btn btn-outline-secondary"><i
                                     className="bi bi-search"></i></button>
-                                <div className="dropdown-menu" id="filter">
-                                    <a className="dropdown-item" href="*">byID</a>
-                                    <a className="dropdown-item" href="*">byName</a>
-                                </div>
                             </div>
                         </div>
                     </div>

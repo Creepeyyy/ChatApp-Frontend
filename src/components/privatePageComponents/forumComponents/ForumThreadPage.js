@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -57,17 +58,16 @@ function ForumThreadPage(props) {
               <input type="search" id="search" className="form-control" placeholder="Search.." />
             </div>
             <div className="input-group-append">
-              <button type="button"
-                className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                data-bs-toggle="dropdown" data-bs-target="#filter">
-              </button>
+              <Dropdown as={ButtonGroup} >
+                <Dropdown.Toggle variant='outline-secondary' />
+                <Dropdown.Menu>
+                  <Dropdown.Item>byID</Dropdown.Item>
+                  <Dropdown.Item>byName</Dropdown.Item>
+                  <Dropdown.Item>byOwnerID</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <button type="button" className="btn btn-outline-secondary"><i
                 className="bi bi-search"></i></button>
-              <div className="dropdown-menu" id="filter">
-                <a className="dropdown-item" href="*">byID</a>
-                <a className="dropdown-item" href="*">byOwner</a>
-                <a className="dropdown-item" href="*">byName</a>
-              </div>
             </div>
           </div>
         </div>
@@ -83,9 +83,10 @@ function ForumThreadPage(props) {
                     <h5 className="card-title">{item.name.length > 75 ? item.name.substring(0, 75) + "..." : item.name}</h5>
                     <p className="card-text">{item.description ? (item.description.length > 100 ? item.description.substring(0, 100) + "..." : item.description) : item.description}</p>
                     <div className="d-flex justify-content-between">
-                      <Link to={item._id} id="ViewForumThreadButton" className="btn btn-primary">
+                      <Link to={item._id} id="ViewForumThreadButton" className="btn btn-primary" state={{forum: item}}>
                         <p>Visit Forum</p>
                       </Link>
+
                       <div>
                         {(props.user.userID === item.ownerID || props.user.isAdministrator === true) ?
                           <>

@@ -1,22 +1,30 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom'
-import { getMessages } from '../../../features/forumMessageManagement/forumMessageManagementSlice';
+import { useLocation, useParams } from 'react-router-dom'
+import { createMessage, getMessages, reset, resetGet } from '../../../features/forumMessageManagement/forumMessageManagementSlice';
 import ConfirmationDialog from '../forumComponents/ConfirmationDialog';
 import ForumMessageWidget from './ForumMessageWidget';
 
 function ForumMessagePage(props) {
+  const { id } = useParams();
+  const location = useLocation();
+  const [input, setInput] = useState({
+    forumThreadID: id,
+  });
   const [createDialog, setCreateDialog] = useState(false);
-  const [updateDialog, setUpdateDialog] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
   const [started, setStarted] = useState(false);
-  const { id } = useParams();
-
-  let { messages, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.messageManagement)
+  let { messages, message, isError, isSuccess, isGetPending, isGetError, isGetSuccess } = useSelector((state) => state.messageManagement);
   const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createMessage({ token: props.token, message: input }));
+  }
 
   useEffect(() => {
     if (started === false) {
@@ -39,6 +47,18 @@ function ForumMessagePage(props) {
 
   }, [id, started, isGetError, isGetSuccess, dispatch])
 
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+    if (isSuccess) {
+      console.log("Created: ");
+      console.log(message);
+      dispatch(resetGet());
+      dispatch(reset());
+    }
+  }, [isError, isSuccess, message, dispatch])
+
   return (
     <div className="container-fluid" id="messageContainer">
       <div className="row row-cols-1 row-cols-lg-3">
@@ -52,10 +72,17 @@ function ForumMessagePage(props) {
         </div>
         <div className="col order-last d-flex flex-column justify-content-center">
           <div className="d-flex flex-row justify-content-lg-end justify-content-center">
-            <button id="popover-btn" type="button" className="btn text-white" data-bs-toggle="popover"
-              data-bs-placement="bottom" title="Forumname by Author"
-              data-bs-content="ForumDescription: And here's some amazing content. It's very engaging. Right?">About
-              Forum</button>
+            <OverlayTrigger trigger="click" placement="bottom"
+              overlay={
+                <Popover>
+                  <Popover.Header as="h3" className="text-black">{location.state ? location.state.forum.name: "Reload Page to see everything"}</Popover.Header>
+                  <Popover.Body>
+                  {location.state ? location.state.forum.description: "Reload Page to see everything"}
+                  </Popover.Body>
+                </Popover>}
+            >
+              <Button variant="secondary">About forum</Button>
+            </OverlayTrigger>
           </div>
         </div>
       </div>
@@ -65,7 +92,7 @@ function ForumMessagePage(props) {
           {
             messages.map(item => {
               return (
-                <div className="card w-100 text-white" id="message">
+                <div className="card w-100 text-white" id="message" key={item._id}>
                   <div className="card-header d-flex flex-row justify-content-between" id="messageheader">
                     <h4 id="username">{item.authorID}</h4>
                     <div className="d-flex flex-row flex-nowrap">
@@ -92,21 +119,21 @@ function ForumMessagePage(props) {
         </div>
       }
       {createDialog ? <ForumMessageWidget show={createDialog} hide={setCreateDialog} token={props.token} id={id} /> : <></>}
-      {updateDialog ? <ForumMessageWidget show={updateDialog} hide={setUpdateDialog} token={props.token} message={updateDialog} id={id} /> : <></>}
+      {/*       {updateDialog ? <ForumMessageWidget show={updateDialog} hide={setUpdateDialog} token={props.token} message={updateDialog} id={id} /> : <></>} */}
       {confirmationDialog ? <ConfirmationDialog show={confirmationDialog} hide={setConfirmationDialog} token={props.token} forum={confirmationDialog} /> : <></>}
       <div className="d-flex flex-row justify-content-center" id="sendbar">
         <div className="col form-floating text-white">
-          <input type="text" className="form-control" id="messageTitle" placeholder="MessageTitle" />
-          <label for="messageTitle">Title</label>
+          <input type="text" className="form-control text-white" id="messageTitle" placeholder="MessageTitle" onChange={(e) => setInput({ ...input, title: e.target.value })} />
+          <label htmlFor='messageTitle'>Title</label>
         </div>
         <div className="col-8">
           <div className="d-flex">
             <div className="form-floating text-white flex-grow-1" id="messageContent">
-              <textarea className="form-control" placeholder="Your text"
-                id="messageText"></textarea>
-              <label for="messageText">Content</label>
+              <textarea className="form-control text-white" placeholder="Your text"
+                id="messageText" onChange={(e) => setInput({ ...input, text: e.target.value })} />
+              <label htmlFor="messageText">Content</label>
             </div>
-            <button className="btn btn-primary" id="send">
+            <button className="btn btn-primary" id="send" onClick={(e) => handleSubmit(e)}>
               <i className="bi bi-arrow-90deg-right" />
             </button>
           </div>
