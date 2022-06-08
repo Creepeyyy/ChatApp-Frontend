@@ -22,12 +22,6 @@ function SideMenu(props) {
                             <p>Forum</p>
                         </Link>
                     </div>
-                    <div className="item">
-                        <Link to="verify">
-                            <i className="bi bi-person-check-fill" />
-                            <p>Verify</p>
-                        </Link>
-                    </div>
                     {props.isAdministrator ?
                         <div className="item">
                             <Link to="userManagement" id="OpenUserManagementButton">

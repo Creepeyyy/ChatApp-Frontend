@@ -62,7 +62,7 @@ function UserManagement(props) {
                         </div>
                     </div>
                 </div>
-                {isGetPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting users...{isGetPending}</div> :
+                {isGetPending ? <div><span className="spinner-border spinner-border-sm" role="status"></span>Collecting users...</div> :
                     <table className="table">
                         <thead>
                             <tr>

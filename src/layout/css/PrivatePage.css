@@ -124,7 +124,11 @@
     color: ghostwhite;
 }
 
-.card form input:focus{
+.card form input:focus {
     background-color: #494b4d;
     color: ghostwhite;
+}
+
+#accounteditor>.modal-content {
+    border: unset;
 }

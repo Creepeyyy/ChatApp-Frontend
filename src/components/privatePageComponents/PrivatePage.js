@@ -2,8 +2,7 @@ import React from 'react'
 import SideMenu from './SideMenu'
 import UserManagement from './userComponents/UserManagement';
 import ForumThreadPage from './forumComponents/ForumThreadPage';
-import VerificationPage from './verificationComponents/VerificationPage';
-import AccountEditorWidget from './AccountEditorWidget';
+import AccountEditorWidget from './accountEditorComponents/AccountEditorWidget';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import LogoutButton from '../LogoutButton';
@@ -18,8 +17,7 @@ function PrivatePage() {
             <SideMenu userID={userID} isAdministrator={isAdministrator} />
             <div className="main">
                 <Routes>
-                    <Route path="verify" element={<VerificationPage token={token} />} />
-                    <Route path="profile" element={<AccountEditorWidget token={token} />} />
+                    <Route path="profile" element={<AccountEditorWidget token={token} userID={userID}/>} />
                     <Route path="forums" element={<ForumThreadPage token={token} user={{ userID: userID, isAdministrator: isAdministrator }} />} />
                     <Route path="forums/:id" element={<ForumMessagePage token={token} user={{ userID: userID, isAdministrator: isAdministrator }} />} />
                     <Route path="" element={(

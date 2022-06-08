@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
@@ -8,30 +9,22 @@ function TopMenu() {
 
     return (
         <div className="sticky-top">
-            <nav className="navbar navbar-expand-md bg-dark navbar-dark">
+            <Navbar bg="dark" variant='dark' expand="md">
                 <div className="container-fluid">
-                    <span className="navbar-brand mb-0 h1">MyForums</span>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"><span
-                        className="navbar-toggler-icon"></span></button>
-                    <div className="collapse navbar-collapse" id="navmenu">
-                        <ul className="navbar-nav px-5">
-                            <li className="nav-item">
-                                <a href="#aboutus" className="nav-link">About us</a>
-                            </li>
-                            <li className="nav-item">
-                                <a href="#socials" className="nav-link">Socials</a>
-                            </li>
-                            <li className="nav-item">
-                                <a href="#faq" className="nav-link">FAQ</a>
-                            </li>
-                        </ul>
+                    <Navbar.Brand className='mb-0 h1'>MyForums</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="navmenu">
+                        <Nav className="px-md-5">
+                            <Nav.Link href="#aboutus">About us</Nav.Link>
+                            <Nav.Link href="#socials">Socials</Nav.Link>
+                            <Nav.Link href="#faq">FAQ</Nav.Link>
+                        </Nav>
                         <div className="ms-auto">
-                            {token ? <LogoutButton/> : <LoginButton />}
+                            {token ? <LogoutButton /> : <LoginButton />}
                         </div>
-
-                    </div>
+                    </Navbar.Collapse>
                 </div>
-            </nav>
+            </Navbar>
         </div>
     )
 }

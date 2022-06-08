@@ -12,7 +12,7 @@ function PublicPage() {
                         <img className="img-fluid" id="chat" src={chat} alt="Chat" />
                     </div>
                     <div id="login" className="container-fluid">
-                        <h1>Chat in Forums about different Topics or with your friends.</h1>
+                        <p className='h1 text-light'>Chat in Forums about different Topics or with your friends.</p>
                         <LoginButton />
                     </div>
                 </div>

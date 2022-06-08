@@ -1,13 +1,8 @@
-TODO:
--ForumMessages rechte und ids
-
 Zusatz:
--Verification
--eigenes Profil bearbeiten
--(maybe billige Suche oder sowas)
 -Tests
+-(maybe billige Suche oder sowas)
+
 
 Fragen an Klinski:
 -ok, dass wenn was fehlschlägt, dann man muss es nochmal machen (dialog bleibt offen)?
--ist es ok, dass nur user, die die actions (delete, edit) ausführen können bei forums und forummessages auch die actions sehen
 -bei Foren messages werden nicht entfernt, wenn man Seite verlässt, sondern, wenn man Seite besucht 

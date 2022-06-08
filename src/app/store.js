@@ -3,6 +3,7 @@ import authenticationReducer from "../features/authentication/authenticationSlic
 import userManagementReducer from "../features/userManagement/userManagementSlice";
 import forumManagementReducer from "../features/forumManagement/forumManagementSlice";
 import forumMessageManagementReducer from "../features/forumMessageManagement/forumMessageManagementSlice";
+import accountManagementReducer from "../features/accountManagement/accountManagementSlice";
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         userManagement: userManagementReducer,
         forumManagement: forumManagementReducer,
         messageManagement: forumMessageManagementReducer,
+        accountManagement: accountManagementReducer
     },
 });

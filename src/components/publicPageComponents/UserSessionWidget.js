@@ -58,7 +58,6 @@ function UserSessionWidget(props) {
                 </Modal.Body>
                 <Modal.Footer className="text-black">
                     {isError ? <p className="me-auto text-danger">Falsche Eingabedaten!</p> : <></>}
-                    Registrieren
                 </Modal.Footer>
             </Modal>
             {isSuccess ? <Navigate to="/my"/> : <></>}
