@@ -19,7 +19,6 @@ function UserManagement(props) {
     const dispatch = useDispatch();
 
     const search = () => {
-        console.log(searchInput)
         if (searchInput.searchText === "") {
             setSearchResult(false);
             return;
