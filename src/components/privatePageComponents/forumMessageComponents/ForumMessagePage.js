@@ -74,7 +74,7 @@ function ForumMessagePage(props) {
           </div>
         </div>
         <div className="col order-first order-lg-1 text-white text-center">
-          <h1>Forumname</h1>
+          <h1>{location.state ? location.state.forum.name : "Forumname"}</h1>
         </div>
         <div className="col order-last d-flex flex-column justify-content-center">
           <div className="d-flex flex-row justify-content-lg-end justify-content-center">
