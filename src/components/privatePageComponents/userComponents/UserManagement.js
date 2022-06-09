@@ -86,7 +86,7 @@ function UserManagement(props) {
             <div className="container-fluid table-responsive" id="admintools">
                 <div className="row row-cols-1 row-cols-sm-3">
                     <div className="col offset-sm-4 text-white text-center">
-                        <h1>Users</h1>
+                        <h1>Usermanagement</h1>
                     </div>
                     <div className="col d-flex flex-column justify-content-center">
                         <div className="input-group d-flex flex-row justify-content-md-end justify-content-center">
