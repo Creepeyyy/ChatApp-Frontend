@@ -6,7 +6,7 @@ function LoginButton() {
 
     return (
         <div>
-            <button id="LoginOpenDialogButton" className="btn btn-primary" onClick={() => setLoginDialog(true)}>
+            <button id="OpenLoginDialogButton" className="btn btn-primary" onClick={() => setLoginDialog(true)}>
                 Login
             </button>
             <UserSessionWidget show={loginDialog} hide={setLoginDialog} />

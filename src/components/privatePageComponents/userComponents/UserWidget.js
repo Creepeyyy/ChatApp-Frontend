@@ -74,7 +74,7 @@ function UserWidget(props) {
               <Form.Check
                 inline
                 type="switch"
-                id="isAdministratorInput"
+                id="IsAdministratorInput"
                 onChange={(e) => setInput({ ...input, isAdministrator: e.target.checked })}
                 label={
                   <p className="text-black">is admin?</p>
@@ -84,7 +84,7 @@ function UserWidget(props) {
               <Form.Check
                 inline
                 type="switch"
-                id="isNewsletterEnjoyerInput"
+                id="IsNewsletterEnjoyerInput"
                 onChange={(e) => setInput({ ...input, newsletter: e.target.checked })}
                 label={
                   <p className="text-black">receives newsletter?</p>

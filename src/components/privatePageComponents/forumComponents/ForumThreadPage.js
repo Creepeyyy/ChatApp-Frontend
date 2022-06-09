@@ -76,14 +76,14 @@ function ForumThreadPage(props) {
         <div id="ForumThreadList" className="row row-cols-1 row-cols-md-2 row-cols-xl-3 mt-3">
           {forums.map(item => {
             return (
-              <div className="col forumThread" id={`FormThread${item._id}`} key={item._id}>
+              <div className="col forumThread" id={`ForumThread${item._id}`} key={item._id}>
                 <div className="card text-white">
                   <div className="card-body">
                     <img className="card-img-top" src={forumPic} alt="Card cap" />
                     <h5 className="card-title">{item.name.length > 75 ? item.name.substring(0, 75) + "..." : item.name}</h5>
                     <p className="card-text">{item.description ? (item.description.length > 100 ? item.description.substring(0, 100) + "..." : item.description) : item.description}</p>
                     <div className="d-flex justify-content-between">
-                      <Link to={item._id} id="ViewForumThreadButton" className="btn btn-primary" state={{forum: item}}>
+                      <Link to={item._id} id={`ViewForumThreadButton${item._id}`} className="btn btn-primary" state={{forum: item}}>
                         <p>Visit Forum</p>
                       </Link>
 

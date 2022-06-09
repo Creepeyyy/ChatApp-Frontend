@@ -17,7 +17,7 @@ function SideMenu(props) {
                 </div>
                 <div className="menu">
                     <div className="item">
-                        <Link to="forums">
+                        <Link to="forums" id="OpenForumThreadOverviewButton">
                             <i className="bi bi-chat-square-dots-fill" />
                             <p>Forum</p>
                         </Link>
