@@ -62,9 +62,9 @@ function UserManagement(props) {
                         <th scope="row">{item.userID.length > 15 ? item.userID.substring(0, 15) + "..." : item.userID}</th>
                         <td>{item.userName}</td>
                         <td>{item.isAdministrator.toString()}</td>
-                        <td>{item.verified.toString()}</td>
+                        <td>{item.verified ? item.verified.toString() : ""}</td>
                         <td>{item.email ? (item.email.length > 45 ? item.email.substring(0, 45) + "..." : item.email) : item.email}</td>
-                        <td>{item.newsletter.toString()}</td>
+                        <td>{item.newsletter ? item.newsletter.toString() : ""}</td>
                         <td>
                             <button id={`EditButton${item.userID}`} className="btn btn-secondary" onClick={() =>  setUpdateDialog(item)}>
                                 <i className="bi bi-pencil"></i>

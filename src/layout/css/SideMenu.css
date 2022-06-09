@@ -19,16 +19,16 @@ h1 {
 }
 
 .sidebar .menu {
-    height: 90vh;
+    height: 90%;
     display: flex;
     flex-flow: column;
     width: 100%;
 }
 
 #last {
-    position: absolute;
-    width: inherit;
-    bottom: 0.5rem;
+    position: fixed;
+    width: 175px;
+    bottom: 0;
 }
 
 .sidebar .menu .item a {
